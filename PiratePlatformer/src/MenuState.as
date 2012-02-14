@@ -13,7 +13,7 @@ package
 		override public function create():void
 		{
 			FlxG.mouse.show();
-			startButton = new FlxButton(120, 90, "Start Game", startGame);
+			startButton = new FlxButton(120, 100, "Start Game", startGame);
 			add(startButton);
 		}
 
