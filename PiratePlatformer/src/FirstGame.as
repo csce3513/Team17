@@ -7,7 +7,7 @@ package
 	{
 		public function FirstGame()
 		{
-			super(320, 240, MenuState, 2);
+			super(320, 240, MenuState, 3);
 		}
 	}
 }
