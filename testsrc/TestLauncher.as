@@ -9,7 +9,7 @@ package
 			super();
 			addTest(new Tests("testInstantiated"));
 			addTest(new Tests("testAddition"));
-			//addTest(new ExampleTest("testFail"));
+			//addTest(new Tests("testFail"));
 		}
 		
 	}

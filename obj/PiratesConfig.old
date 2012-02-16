@@ -26,7 +26,11 @@
     </source-path>
   </compiler>
   <file-specs>
+<<<<<<< HEAD:obj/PiratesConfig.old
     <path-element>D:\Repo\Team17\src\AsUnitTestRunner.as</path-element>
+=======
+    <path-element>D:\Repo\Team17\src\Main.as</path-element>
+>>>>>>> testing:obj/PiratesConfig.old
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
