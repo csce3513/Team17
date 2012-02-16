@@ -20,17 +20,12 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>D:\Repo\Team17\src</path-element>
-      <path-element>C:\Program Files (x86)\AsUnit\framework\as3</path-element>
+      <path-element>C:\Users\Sam\Team17\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-<<<<<<< HEAD:obj/PiratesConfig.old
-    <path-element>D:\Repo\Team17\src\AsUnitTestRunner.as</path-element>
-=======
-    <path-element>D:\Repo\Team17\src\Main.as</path-element>
->>>>>>> testing:obj/PiratesConfig.old
+    <path-element>C:\Users\Sam\Team17\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

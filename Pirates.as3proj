@@ -16,7 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="C:\Program Files (x86)\AsUnit\framework\as3" />
+    <class path="..\Desktop\Flash Projects\ASUnit\lukebayes-asunit-e2af845\as3" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -71,7 +71,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\AsUnitTestRunner.as" />
+    <compile path="src\Main.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
