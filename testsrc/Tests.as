@@ -1,15 +1,19 @@
 package  
 {
 	import asunit.framework.TestCase;
+	import org.flixel.*;
 	
 	public class Tests extends TestCase
 	{
 		private var _instance:Example;
+		public var player:FlxObject;
+		public var leftKey:Boolean, rightKey:Boolean, space:Boolean;
 		
 		// calls the test called from TestLauncher
 		public function Tests(testMethod:String) 
 		{
 			super(testMethod);
+			player = new FlxObject();
 		}
 
 		// called on test class instantiation to construct the class and destroy it when it is done testing
@@ -20,17 +24,28 @@ package
 			_instance = null;
 		}
 
-		public function testInstantiated():void {
-			assertTrue("Example instantiated", _instance is Example);
+		public function TestLeftMovement():void {
+			leftKey = true;
+			if (leftKey)
+				player.acceleration.x = -player.maxVelocity.x * 4;
+			var result:Number = player.acceleration.x;
+			assertEquals("Expected:40000 Received:"+result, result, -40000);
 		}
-
-		public function testFail():void {
-			assertFalse("failing test", true);
+		
+		public function TestRightMovement():void {
+			rightKey = true;
+			if (rightKey)
+				player.acceleration.x = player.maxVelocity.x * 4;
+			var result:Number = player.acceleration.x;
+			assertEquals("Expected:40000 Received:"+result, result, 40000);
 		}
-
-		public function testAddition():void {
-			var result:Number = _instance.add(2,3);
-			assertEquals("Expected:5 Received:"+result, result, 5);
+		
+		public function TestJump():void {
+			space = true;
+			if (space)
+				player.velocity.y = -player.maxVelocity.y / 1.5;
+			var result:Number = player.velocity.y;
+			assertEquals("Expected:6666.667 Received:"+result, result, -(10000/1.5));
 		}
 	}
 
