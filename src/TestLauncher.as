@@ -7,9 +7,9 @@ package
 		public function TestLauncher() 
 		{
 			super();
-			//addTest(new ExampleTest("testInstantiated"));
-			//addTest(new ExampleTest("testAddition"));
-			//addTest(new ExampleTest("testFail"));
+			addTest(new Tests("testInstantiated"));
+			addTest(new Tests("testAddition"));
+			//addTest(new Tests("testFail"));
 		}
 		
 	}
