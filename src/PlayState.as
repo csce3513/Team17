@@ -10,6 +10,7 @@ package
 
 		public var level:FlxTilemap;
 		public var player:FlxSprite;
+		public var o:worldObject;
 		private var paused:Boolean;
 		public var pauseGroup:FlxGroup;
 		private var quitBtn:FlxButton;
@@ -26,8 +27,8 @@ package
 			pauseGroup = new FlxGroup();
 			
 			var data:Array = new Array (
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -68,6 +69,10 @@ package
 			player.drag.x = player.maxVelocity.x * 4;
 			add(player);
 			
+			o = new worldObject();
+			add(o);
+			if (!o.isTouching(FlxObject.FLOOR)) o.acceleration.y = 500; else o.acceleration.y = 0;
+			
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
 			cam.setBounds(0, 0, level.width, level.height);
@@ -100,6 +105,8 @@ package
 				FlxG.mouse.show();
 				return pauseGroup.update();
 			}
+			
+			//if player falls into pit
 			if (player.y > FlxG.height) {
 				FlxG.shake(0.1, .5, FlxG.resetGame, false, 0);
 			}

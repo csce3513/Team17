@@ -47,6 +47,14 @@ package
 			var result:Number = player.velocity.y;
 			assertEquals("Expected:6666.667 Received:"+result, result, -(10000/1.5));
 		}
+		
+		public function TestWorldObject():void {
+			var o = new worldObject();
+			assertFalse("Expected true, Received: " + o.exists.toString(), o.exists); // tests to see if not spawned, fails
+			assertTrue("Expected true, Received: " + o.exists.toString(), o.exists); // tests to see if spawned, passes
+			assertTrue(o.getHealth() < 1); //tests to see if the object is alive.  assumed to be destroyable, written to fail
+			assertTrue(o.getHealth() > 0);  // tests for life.  passes
+		}
 	}
 
 }

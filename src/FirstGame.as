@@ -8,6 +8,7 @@ package
 		public function FirstGame()
 		{
 			super(320, 240, MenuState, 3);
+			forceDebugger = true;
 		}
 	}
 }
