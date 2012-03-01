@@ -10,6 +10,7 @@ package
 
 		public var level:FlxTilemap;
 		public var player:FlxSprite;
+		public var o:worldObject;
 		private var paused:Boolean;
 		public var pauseGroup:FlxGroup;
 		private var quitBtn:FlxButton;
@@ -68,6 +69,9 @@ package
 			player.drag.x = player.maxVelocity.x * 4;
 			add(player);
 			
+			o = new worldObject();
+			add(o);
+			
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
 			cam.setBounds(0, 0, level.width, level.height);
@@ -83,6 +87,9 @@ package
 			override public function update():void {
 			
 			FlxG.collide();
+			
+			o.acceleration.y = 0;
+			if (!o.isTouching(FlxObject.FLOOR)) o.acceleration.y = 500;
 			
 			player.acceleration.x = 0;
 			
