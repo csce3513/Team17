@@ -8,7 +8,7 @@ package
 		{
 		}
 
-		[Embed(source = 'assets/spritePirate.png')] private var piratePNG:Class;
+		[Embed(source = '../assets/spritePirate.png')] private var piratePNG:Class;
 		
 		public var level:FlxTilemap;
 		public var player:Player;
