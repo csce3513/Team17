@@ -11,9 +11,14 @@ package
 		[Embed(source = '../assets/spritePirate.png')] private var piratePNG:Class;
 		
 		public var level:FlxTilemap;
+<<<<<<< HEAD
 		public var player:Player;
 		public var o:worldObject;
 		public var testEnemy:Enemy;
+=======
+		public var player:FlxSprite;
+		public var o:worldObject;
+>>>>>>> dev
 		private var paused:Boolean;
 		public var pauseGroup:FlxGroup;
 		private var quitBtn:FlxButton;
@@ -76,6 +81,7 @@ package
 			
 			o = new worldObject();
 			add(o);
+<<<<<<< HEAD
 			
 			testEnemy = new Enemy();
 			add(testEnemy);
@@ -96,6 +102,9 @@ package
 			bar.origin.x = bar.origin.y = 0; //Zero out the origin
 			bar.scale.x = 50; //Fill up the health bar all the way
 			add(bar);
+=======
+			if (!o.isTouching(FlxObject.FLOOR)) o.acceleration.y = 500; else o.acceleration.y = 0;
+>>>>>>> dev
 			
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
@@ -136,6 +145,8 @@ package
 				FlxG.mouse.show();
 				return pauseGroup.update();
 			}
+			
+			//if player falls into pit
 			if (player.y > FlxG.height) {
 				player.doDamage(1);
 				bar.scale.x = bar.scale.x - 5;

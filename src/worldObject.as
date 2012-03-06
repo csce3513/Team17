@@ -10,7 +10,11 @@ package
 	{
 		// all of these initial variable assignments will be changed to parameters passed from the level loading methods.
 		public function worldObject():void {  
+<<<<<<< HEAD
 			super(250, 72); //spawns at 180,40
+=======
+			super(178, 40); //spawns at 180,40
+>>>>>>> dev
 			makeGraphic(8, 8, 0xff000000); // 8x8 black object drawn at 140,80
 			setHealth(1); // setters
 			solid = true;
@@ -20,8 +24,11 @@ package
 			//destination = this.getMidpoint();
 			//immovable = true; // sets the object to be interactable and immovable
 		}
+<<<<<<< HEAD
 		
 		
+=======
+>>>>>>> dev
 		//create without graphic
 		//public function worldObject(W:Number, X:Number, Y:Number, HP:Number, T:String) 
 		//{
