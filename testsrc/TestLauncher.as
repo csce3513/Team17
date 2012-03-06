@@ -10,7 +10,7 @@ package
 			addTest(new Tests("TestLeftMovement"));
 			addTest(new Tests("TestRightMovement"));
 			addTest(new Tests("TestJump"));
-			//addTest(new Tests("testFail"));
+			addTest(new Tests("TestHealth"));
 		}
 		
 	}
