@@ -105,38 +105,5 @@ package
 			assertTrue(o.getHealth() < 1); //tests to see if the object is alive.  assumed to be destroyable, written to fail
 			assertTrue(o.getHealth() > 0);  // tests for life.  passes
 		}
-		
-		public function TestHealth():void {
-			var player:Player = new Player();
-			player.doDamage(7);
-			player.heal(3);
-			assertEquals("Expected: 6 Received:" + player.getHealth(), player.getHealth(), 6);
-		}
-		
-		public function TestGetAngleMetod():void{
-           var playerX:Number = 60;
-           var playerY:Number = 200;
-           var mouseX:Number = 120;
-           var mouseY:Number = 100;
-           var result:Number = getAngle(playerX,playerY,mouseX,mouseY);
-           assertEquals("Expected: 30.963757, Received: " + result, result, 30.963757);
-}
-
-		public function testAttackTargetInRange(): void{
-            var player:FlxSprite = new FlxSprite(10,15);
-            var target:FlxSprite = new FlxSprite(15,15);
-            player.attack();
-            var targetHealthAfter:Number = target.getHealth();
-            assertEquals("Expected:50, Recived: " + targetHealthAfter, targetHealthAfter, 50);
-		}
-
-		public function testAttackTargetOutOfRange(): void{
-            var player:FlxSprite = new FlxSprite(10,15);
-            var target:FlxSprite = new FlxSprite(45,15);
-            player.attack();
-            var targetHealthAfter:Number = target.getHealth();
-            assertEquals("Expected:100, Recived: " + targetHealthAfter, targetHealthAfter, 50);
-		}
 	}
-
 }
