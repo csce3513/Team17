@@ -8,12 +8,16 @@ package
 		{
 		}
 
+		[Embed(source = 'assets/spritePirate.png')] private var piratePNG:Class;
+		
 		public var level:FlxTilemap;
-		public var player:FlxSprite;
+		public var player:Player;
 		public var o:worldObject;
+		public var testEnemy:Enemy;
 		private var paused:Boolean;
 		public var pauseGroup:FlxGroup;
 		private var quitBtn:FlxButton;
+		private var bar:FlxSprite
 		private var cam:FlxCamera;
 		private var cam2:FlxCamera;
 		private var vel:int;
@@ -27,8 +31,8 @@ package
 			pauseGroup = new FlxGroup();
 			
 			var data:Array = new Array (
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -62,7 +66,8 @@ package
 			level.loadMap(FlxTilemap.arrayToCSV(data, 40), FlxTilemap.ImgAuto, 0, 0, FlxTilemap.AUTO);
 			add(level);
 			
-			player = new FlxSprite(level.width/2-8, 0).makeGraphic(10,12, 0xFFFF0000);
+			player = new Player(level.width / 2 - 8, 0)
+			player.loadGraphic(piratePNG,false, false, 20, 20);
 			player.maxVelocity.x = 80;
 			player.maxVelocity.y = 200;
 			player.acceleration.y =  200;
@@ -71,6 +76,26 @@ package
 			
 			o = new worldObject();
 			add(o);
+			
+			testEnemy = new Enemy();
+			add(testEnemy);
+			
+			var frame:FlxSprite = new FlxSprite(4,4);
+			frame.makeGraphic(52,10); //White frame for the health bar
+			frame.scrollFactor.x = frame.scrollFactor.y = 0;
+			add(frame);
+ 
+			var inside:FlxSprite = new FlxSprite(5,5);
+			inside.makeGraphic(50,8,0xff000000); //Black interior, 48 pixels wide
+			inside.scrollFactor.x = inside.scrollFactor.y = 0;
+			add(inside);
+ 
+			bar = new FlxSprite(5,5);
+			bar.makeGraphic(1,8,0xffff0000); //The red bar itself
+			bar.scrollFactor.x = bar.scrollFactor.y = 0;
+			bar.origin.x = bar.origin.y = 0; //Zero out the origin
+			bar.scale.x = 50; //Fill up the health bar all the way
+			add(bar);
 			
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
@@ -103,13 +128,20 @@ package
 				FlxG.mouse.hide();
 				paused = !paused;
 			}
+			if (FlxG.keys.justPressed("H")) {
+				player.doDamage(1);
+				bar.scale.x = bar.scale.x - 5;
+			}
 			if (paused) {
 				FlxG.mouse.show();
 				return pauseGroup.update();
 			}
 			if (player.y > FlxG.height) {
-				FlxG.shake(0.1, .5, FlxG.resetGame, false, 0);
+				player.doDamage(1);
+				bar.scale.x = bar.scale.x - 5;
 			}
+			if(player.getHealth() <= 0)
+				FlxG.shake(0.1, .5, FlxG.resetGame, false, 0);
 			
 				
 			super.update();
