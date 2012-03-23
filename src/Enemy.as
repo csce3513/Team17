@@ -18,16 +18,12 @@ package
 			immovable = true;
 		}
 		
-		public function setHealth(damage:Number):void {
-			health = health - damage;
-		}
-		
 		public function getHealth():Number {
 			return health;
 		}
 		
 		public function takeDamage(damage:Number):void {
-			setHealth(damage);
+			health = getHealth() - damage;
 		}
 		
 	}

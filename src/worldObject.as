@@ -39,8 +39,8 @@ package
 		public function getHealth():Number {
 			return health;	
 		}
-		public function setHealth(hp:Number):void {
-			health = hp;
+		public function takeDamage(damage:Number):void {
+			health = getHealth() - damage;
 		}
 	}
 
