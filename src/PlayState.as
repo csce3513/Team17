@@ -82,6 +82,43 @@ package
 			testEnemy = new Enemy();
 			add(testEnemy);
 			
+<<<<<<< HEAD
+=======
+			var frame:FlxSprite = new FlxSprite(4,4);
+			frame.makeGraphic(52,10); //White frame for the health bar
+			frame.scrollFactor.x = frame.scrollFactor.y = 0;
+			add(frame);
+ 
+			var inside:FlxSprite = new FlxSprite(5,5);
+			inside.makeGraphic(50,8,0xff000000); //Black interior, 48 pixels wide
+			inside.scrollFactor.x = inside.scrollFactor.y = 0;
+			add(inside);
+ 
+			bar = new FlxSprite(5,5);
+			bar.makeGraphic(1,8,0xffff0000); //The red bar itself
+			bar.scrollFactor.x = bar.scrollFactor.y = 0;
+			bar.origin.x = bar.origin.y = 0; //Zero out the origin
+			bar.scale.x = 50; //Fill up the health bar all the way
+			add(bar);
+			
+			var frame:FlxSprite = new FlxSprite(4,4);
+			frame.makeGraphic(52,10); //White frame for the health bar
+			frame.scrollFactor.x = frame.scrollFactor.y = 0;
+			add(frame);
+ 
+			var inside:FlxSprite = new FlxSprite(5,5);
+			inside.makeGraphic(50,8,0xff000000); //Black interior, 48 pixels wide
+			inside.scrollFactor.x = inside.scrollFactor.y = 0;
+			add(inside);
+ 
+			bar = new FlxSprite(5,5);
+			bar.makeGraphic(1,8,0xffff0000); //The red bar itself
+			bar.scrollFactor.x = bar.scrollFactor.y = 0;
+			bar.origin.x = bar.origin.y = 0; //Zero out the origin
+			bar.scale.x = 50; //Fill up the health bar all the way
+			add(bar);
+			
+>>>>>>> 38c0c1ce7ec8e10339fb95ebaab9685895316d27
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
 			cam.setBounds(0, 0, level.width, level.height);
