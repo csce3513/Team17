@@ -12,7 +12,7 @@ package
 		public function worldObject():void {  
 			super(250, 72); //spawns at 180,40
 			makeGraphic(8, 8, 0xff000000); // 8x8 black object drawn at 140,80
-			setHealth(1); // setters
+			health = 1; // setters
 			solid = true;
 			moves = false;
 			immovable = true;

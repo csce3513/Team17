@@ -12,7 +12,7 @@ package
 		{
 			super(55, 55); //spawns at 180,40
 			loadGraphic(stickmanGraphic, false, false, 18, 24);
-			setHealth(1); // setters
+			health = 1; // setters
 			solid = true;
 			moves = false;
 			immovable = true;

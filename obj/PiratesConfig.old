@@ -16,32 +16,12 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-<<<<<<< HEAD
       <value>'3/22/2012'</value>
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <value>'3/5/2012'</value>
-=======
-      <value>'3/1/2012'</value>
->>>>>>> dev
->>>>>>> 38c0c1ce7ec8e10339fb95ebaab9685895316d27
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>C:\Users\cyberratt\Team17\src</path-element>
       <path-element>C:\asunit\framework\as3</path-element>
-<<<<<<< HEAD
-=======
-=======
-      <value>'3/5/2012'</value>
-    </define>
-    <verbose-stacktraces>true</verbose-stacktraces>
-    <source-path append="true">
-      <path-element>C:\Users\Sam\Team17\src</path-element>
-      <path-element>C:\Users\Sam\Desktop\Flash Projects\ASUnit\lukebayes-asunit-e2af845\as3</path-element>
->>>>>>> a48a3cee3b9e8c2639b47e0628bec3efd9902ea3
->>>>>>> 38c0c1ce7ec8e10339fb95ebaab9685895316d27
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
