@@ -67,7 +67,6 @@ package
 			assertTrue(e.getHealth() > 0);
 			// tests for life. passes
 		}
-<<<<<<< HEAD
 		
 		public function TestHealth():void {
 			var player:Player = new Player();
@@ -100,7 +99,5 @@ package
             var targetHealthAfter:Number = target.getHealth();
             assertEquals("Expected:100, Recived: " + targetHealthAfter, targetHealthAfter, 50);
 		}
-=======
->>>>>>> 38c0c1ce7ec8e10339fb95ebaab9685895316d27
 	}
 }

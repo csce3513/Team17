@@ -12,14 +12,10 @@ package
 		{
 			super(55, 55); //spawns at 180,40
 			loadGraphic(stickmanGraphic, false, false, 18, 24);
-			setHealth(1); // setters
+			health = 1; // setters
 			solid = true;
 			moves = false;
 			immovable = true;
-		}
-		
-		public function setHealth(damage:Number):void {
-			health = health - damage;
 		}
 		
 		public function getHealth():Number {
@@ -27,7 +23,7 @@ package
 		}
 		
 		public function takeDamage(damage:Number):void {
-			setHealth(damage);
+			health = getHealth() - damage;
 		}
 		
 	}
