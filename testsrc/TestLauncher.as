@@ -23,7 +23,6 @@ package
 			addTest(new Tests("TestWorldObject"));
 			addTest(new Tests("TestTestEnemy"));
 
->>>>>>> 38c0c1ce7ec8e10339fb95ebaab9685895316d27
 		}
 		
 	}
