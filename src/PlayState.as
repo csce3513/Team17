@@ -7,8 +7,6 @@ package
 		public function PlayState()
 		{
 		}
-
-		[Embed(source = '../assets/spritePirate.png')] private var piratePNG:Class;
 		
 		public var level:FlxTilemap;
 		public var testEnemy:Enemy;
@@ -66,12 +64,8 @@ package
 			level.loadMap(FlxTilemap.arrayToCSV(data, 40), FlxTilemap.ImgAuto, 0, 0, FlxTilemap.AUTO);
 			add(level);
 			
-			player = new Player(level.width / 2 - 8, 0)
-			player.loadGraphic(piratePNG,false, false, 20, 20);
-			player.maxVelocity.x = 80;
-			player.maxVelocity.y = 200;
-			player.acceleration.y =  200;
-			player.drag.x = player.maxVelocity.x * 4;
+			player = new Player(level.width / 2 - 8)
+
 			add(player);
 			
 			drawHealthBar();

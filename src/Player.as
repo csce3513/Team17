@@ -3,11 +3,16 @@ package
 	import org.flixel.*; 
 	public class Player extends FlxSprite
 	{
+		[Embed(source = '../assets/spritePirate.png')] private var piratePNG:Class;
 		private var maxHealth:Number = 10;
-		private var bar:FlxSprite;
-		public function Player(X:Number=0,Y:Number=0,SimpleGraphic:Class=null) 
+		public function Player(X:Number=0,Y:Number=0) 
 		{
-			super(X, Y, SimpleGraphic);
+			super(X, Y);
+			loadGraphic(piratePNG,false, false, 20, 20);
+			maxVelocity.x = 80;
+			maxVelocity.y = 200;
+			acceleration.y =  200;
+			drag.x = maxVelocity.x * 4;
 			health = 10;
 		}
 		
