@@ -95,16 +95,11 @@ package
 			player.acceleration.x = 0;
 			bar.scale.x = player.getHealth() * 5;
 			
-			if (FlxG.keys.LEFT)
-				player.acceleration.x = -player.maxVelocity.x * 4;
-			if (FlxG.keys.RIGHT)
-				player.acceleration.x = player.maxVelocity.x * 4;
-			if (FlxG.keys.SPACE && player.isTouching(FlxObject.FLOOR))
-				player.velocity.y = -player.maxVelocity.y / 1.5;
 			if (FlxG.keys.justPressed("P")) {
 				FlxG.mouse.hide();
 				paused = !paused;
 			}
+			
 			if (paused) {
 				FlxG.mouse.show();
 				return pauseGroup.update();
