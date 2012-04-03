@@ -28,11 +28,7 @@ package
 		{
 		super.update();
 		
-<<<<<<< HEAD
 		if (FlxG.keys.justPressed("SPACE") && this.isTouching(FlxObject.FLOOR))
-=======
-		if (FlxG.keys.SPACE && this.isTouching(FlxObject.FLOOR))
->>>>>>> 961b1f57c68abb416fb2ac4d2d2ad06d520d9274
 		{
 			velocity.y = -maxVelocity.y / 1.5;
 		}
