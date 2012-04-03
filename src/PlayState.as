@@ -90,12 +90,13 @@ package
 		}
 		
 		private function loadLevel(l:Number):void {
+			[Embed(source = "../assets/GrassTileSet.png")] var grassTiles:Class;
 			[Embed(source = "../assets/l0.txt", mimeType="application/octet-stream")] var data:Class;
 			var stringData:Object = new data();
 			var levelData:String = stringData.toString();
 			var levelArray:Array = levelData.split(',');
 			level = new FlxTilemap();
-			level.loadMap(FlxTilemap.arrayToCSV(levelArray, 80), FlxTilemap.ImgAuto, 0, 0, FlxTilemap.AUTO);
+			level.loadMap(FlxTilemap.arrayToCSV(levelArray, 80), grassTiles, 8, 8, 0, 1, 1);
 			add(level);
 			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 		}
