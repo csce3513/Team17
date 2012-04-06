@@ -7,21 +7,21 @@ package
 	import org.flixel.*;
 	public class Enemy extends FlxSprite
 	{
-		[Embed(source = "../assets/stickmanTestImage15-24.png")] private var stickmanGraphic:Class;
+		[Embed(source = "../assets/stickmanEnemy.png")] private var stickmanGraphic:Class;
 		private var maxHealth:Number; //include in the constructor?
-		public function Enemy(X:Number = 10, Y:Number = 10):void
+		public var ePath:FlxPath = new FlxPath();
+		public function Enemy(X:Number, Y:Number, pathStartX:Number, pathStartY:Number, pathEndX:Number, pathEndY:Number):void
 		{
 			super(X, Y);
 			loadGraphic(stickmanGraphic, true, true, 15, 24);
+			ePath.addAt(pathStartX, pathStartY, 0);
+			ePath.addAt(pathEndX, pathEndY, 1);
+			this.followPath(ePath, 25, PATH_LOOP_FORWARD, false);
 			maxHealth = 5;
 			health = 5; // setters
 			solid = true;
 			moves = true;
 			immovable = true;
-		}
-		
-		public function getHealth():Number {
-			return health;
 		}
 		
 		public function doDamage(damage:Number):void {

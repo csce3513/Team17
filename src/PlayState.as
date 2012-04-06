@@ -34,10 +34,10 @@ package
 			player = new Player(level.width / 2 - 8)
 			add(player);
 			
-			testEnemy = new Enemy(60, 56);
+			testEnemy = new Enemy(60, 65, 60, 65, 95, 65);
 			add(testEnemy);
 			
-			coordBox = new FlxText(250, 4, 200, "X for coords");
+			coordBox = new FlxText(250, 4, 200);
 			coordBox.scrollFactor.x = coordBox.scrollFactor.y = 0;
 			coordBox.color = 0xfff0000;
 			add(coordBox);
@@ -61,7 +61,7 @@ package
 			FlxG.collide();
 			
 			player.acceleration.x = 0;
-			bar.scale.x = player.getHealth() * 5;
+			bar.scale.x = player.health * 5;
 			
 			if (FlxG.keys.justPressed("P")) {
 				FlxG.mouse.hide();
