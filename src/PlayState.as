@@ -8,15 +8,15 @@ package
 		{
 		}
 		
+		public var coordBox:FlxText;
+		public var coords:FlxPoint = new FlxPoint(0, 0);
 		public var level:FlxTilemap;
 		public var testEnemy:Enemy;
 		public var player:Player;
-		public var o:worldObject;
 		private var paused:Boolean;
 		public var pauseGroup:FlxGroup;
 		private var quitBtn:FlxButton;
 		private var cam:FlxCamera;
-		private var vel:int;
 		private var bar:FlxSprite;
 		private var currentLevel:Number = 0;
 
@@ -34,13 +34,15 @@ package
 			player = new Player(level.width / 2 - 8)
 			add(player);
 			
-			drawHealthBar();
-			
-			o = new worldObject();
-			add(o);
-			
-			testEnemy = new Enemy();
+			testEnemy = new Enemy(60, 56);
 			add(testEnemy);
+			
+			coordBox = new FlxText(250, 4, 200, "X for coords");
+			coordBox.scrollFactor.x = coordBox.scrollFactor.y = 0;
+			coordBox.color = 0xfff0000;
+			add(coordBox);
+			
+			drawHealthBar();
 			
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
@@ -71,19 +73,25 @@ package
 				return pauseGroup.update();
 			}
 			
+			updateCoordBox();
+			
 			if (FlxG.keys.justPressed("H")) {
 				player.doDamage(1);
-				//bar.scale.x = bar.scale.x - 5;
 			}
 			if (FlxG.keys.justPressed("G")) {
 				player.heal(1);
-				//bar.scale.x = bar.scale.x + 5;
 			}
 			
-			//if player falls into pit
+			if (FlxG.keys.justPressed("N")) {
+				testEnemy.doDamage(1);
+			}
+			if (FlxG.keys.justPressed("M")) {
+				testEnemy.heal(1);
+			}
+			
+			//if player falls into a pit
 			if (player.y > FlxG.height) {
 				player.doDamage(1);
-				//bar.scale.x = bar.scale.x - 5;
 			}			
 				
 			super.update();		
@@ -93,10 +101,10 @@ package
 			[Embed(source = "../assets/GrassTileSet.png")] var grassTiles:Class;
 			[Embed(source = "../assets/l0.txt", mimeType="application/octet-stream")] var data:Class;
 			var stringData:Object = new data();
-			var levelData:String = stringData.toString();
-			var levelArray:Array = levelData.split(',');
+			var levelData:String = stringData.toString(); // converts the level text file to a string for parsing.
 			level = new FlxTilemap();
-			level.loadMap(FlxTilemap.arrayToCSV(levelArray, 80), grassTiles, 8, 8, 0, 1, 1);
+			//level.loadMap(FlxTilemap.arrayToCSV(levelArray, 80), grassTiles, 8, 8);
+			level.loadMap(levelData, grassTiles, 8, 8);
 			add(level);
 			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 		}
@@ -120,9 +128,13 @@ package
 			add(bar);
 		}
 		
+		public function updateCoordBox():void {
+			coords = player.getScreenXY();
+			coordBox.text = "X: " + coords.x.toFixed(0).toString() + ", Y: " + coords.y.toFixed(0).toString();
+		}
+		
 		override public function draw():void {
-			if(paused)
-				return pauseGroup.draw();
+			if(paused) return pauseGroup.draw();
 			super.draw();
 		}
 		

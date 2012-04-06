@@ -21,7 +21,7 @@ package
 			maxVelocity.y = 200;
 			acceleration.y =  200;
 			drag.x = maxVelocity.x * 4;
-			health = 10;
+			health = maxHealth;
 			
 		}
 		override public function update():void
@@ -39,14 +39,16 @@ package
 		
 		if (FlxG.keys.LEFT)
 		{
-				acceleration.x = -maxVelocity.x * 4;
+				acceleration.x -= drag.x;
+				//acceleration.x = -maxVelocity.x * 4;
 				facing = FlxObject.LEFT;
 				if(velocity.y == 0)//prevents overiding the jump animation
 				play("walk");
 		}
 		if (FlxG.keys.RIGHT)
 		{
-			acceleration.x = maxVelocity.x * 4;
+			//acceleration.x = maxVelocity.x * 4;
+			acceleration.x += drag.x;
 			facing = FlxObject.RIGHT;
 			if(velocity.y == 0)
 			play("walk");
@@ -58,13 +60,13 @@ package
 
 		//Basic function to do damage to the player.
 		public function doDamage(damage:Number):void{
-			health = getHealth() - damage;
+			health -= damage;
 			if (health < 1) die();
 		}
 		
 		//Basic function to give health back to the player
 		public function heal(heal:Number):void {
-			health = getHealth() + heal;
+			health += heal;
 			if (health > maxHealth) health = maxHealth;
 		}
 		

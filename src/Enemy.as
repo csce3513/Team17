@@ -7,14 +7,16 @@ package
 	import org.flixel.*;
 	public class Enemy extends FlxSprite
 	{
-		[Embed(source = "../assets/enemyStickman.png")] private var stickmanGraphic:Class;
-		public function Enemy():void
+		[Embed(source = "../assets/stickmanTestImage15-24.png")] private var stickmanGraphic:Class;
+		private var maxHealth:Number; //include in the constructor?
+		public function Enemy(X:Number = 10, Y:Number = 10):void
 		{
-			super(55, 55); //spawns at 180,40
-			loadGraphic(stickmanGraphic, false, false, 18, 24);
-			health = 1; // setters
+			super(X, Y);
+			loadGraphic(stickmanGraphic, true, true, 15, 24);
+			maxHealth = 5;
+			health = 5; // setters
 			solid = true;
-			moves = false;
+			moves = true;
 			immovable = true;
 		}
 		
@@ -22,8 +24,18 @@ package
 			return health;
 		}
 		
-		public function takeDamage(damage:Number):void {
-			health = getHealth() - damage;
+		public function doDamage(damage:Number):void {
+			health -= damage;
+			if (health < 1) die();
+		}
+		
+		public function die():void {
+			kill();
+		}
+		
+		public function heal(heal:Number):void {
+			health += heal;
+			if (health > maxHealth) health = maxHealth;
 		}
 		
 	}
