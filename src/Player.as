@@ -63,15 +63,15 @@ package
 			health -= damage;
 			if (health < 1) die();
 		}
-		
+	
 		//Basic function to give health back to the player
 		public function heal(heal:Number):void {
 			health += heal;
 			if (health > maxHealth) health = maxHealth;
 		}
 		
-		public function getHealth():Number {
-			return health;
+		public function getMaxHealth():Number {
+			return maxHealth;
 		}
 		
 		public function die():void {

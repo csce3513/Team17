@@ -17,24 +17,6 @@ package
 			moves = false;
 			immovable = true;
 		}
-
-		//create without graphic
-		//public function worldObject(W:Number, X:Number, Y:Number, HP:Number, T:String) 
-		//{
-			//super(X, Y);
-			//makeGraphic(W, W, 0xff000000);
-			//setHealth(1);
-			//acceleration.y = 0;
-			//maxVelocity.x = 0;
-			//maxVelocity.y = 0;
-		//}
-
-		//create with graphic (for later)
-		//public function worldObject(Graphic:Class, Width:Number, X:Number, Y:Number, hp:Number, type:String) 
-		//{
-			//loadGraphic(Graphic, X, Y, 0xFFFFFF, false);
-			//this.health = hp;
-		//}
 		
 		public function getHealth():Number {
 			return health;	
