@@ -36,7 +36,7 @@ package
 			player = new Player(level.width / 2 - 8)
 			add(player);
 			
-			testEnemy = new Enemy(60, 67, 60, 67, 95, 67);
+			testEnemy = new Enemy(60, 67, 60, 67, 95, 67, true);
 			enemies.add(testEnemy);
 			add(testEnemy);
 			
@@ -63,7 +63,10 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			if (testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) testEnemy.attack(player);
+			if (testEnemy.attackTimer.finished && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) {
+				testEnemy.attack(player);
+				testEnemy.justAttacked();
+			}
 			bar.scale.x = player.health * 5;5
 			updateCoordBox();
 			

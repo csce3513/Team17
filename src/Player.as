@@ -12,6 +12,7 @@ package
 		public var lives:Number = 3;
 		public var isInvulnerable:Boolean = false;
 		public var invulnerableTimer:FlxTimer = new FlxTimer();
+
 		public function Player(X:Number=0,Y:Number=0) 
 		{
 			startingX = X;

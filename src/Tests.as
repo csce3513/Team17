@@ -29,47 +29,40 @@ package
 		}
 		
 		public function TestTestEnemy():void {
-			var e:Enemy = new Enemy();
+			var e:Enemy = new Enemy(0, 0);
 			assertFalse("Expected true, Received: " + e.exists.toString(), e.exists);
 			// tests to see if not spawned, fails
 			assertTrue("Expected true, Received: " + e.exists.toString(), e.exists);
 			// tests to see if spawned, passes
-			assertTrue(e.getHealth() < 1);
+			assertTrue(e.health < 1);
 			//tests to see if the object is alive. assumed to be destroyable, written to fail
-			assertTrue(e.getHealth() > 0);
+			assertTrue(e.health > 0);
 			// tests for life. passes
 		}
 		
 		public function TestHealth():void {
-			var player:Player = new Player();
+			var player:Player = new Player(0, 0);
 			player.doDamage(7);
 			player.heal(3);
-			assertEquals("Expected: 6 Received:" + player.getHealth(), player.getHealth(), 6);
+			assertEquals("Expected: 6 Received:" + player.health, player.health, 6);
 		}
-		
-		//public function TestGetAngleMetod():void {
-           //var playerX:Number = 60;
-           //var playerY:Number = 200;
-           //var mouseX:Number = 120;
-           //var mouseY:Number = 100;
-           //var result:Number = getAngle(playerX,playerY,mouseX,mouseY);
-           //assertEquals("Expected: 30.963757, Received: " + result, result, 30.963757);
-		//}
 
 		public function testAttackTargetInRange(): void {
-            var player:Player = new Player;
-            var target:Player = new Player;
-            //player.attack();
-            var targetHealthAfter:Number = target.getHealth();
-            assertEquals("Expected:50, Recived: " + targetHealthAfter, targetHealthAfter, 50);
+            var player:Player = new Player(30, 0);
+			player.acceleration.x = -1;
+			player.acceleration.x = 0;
+            var target:Enemy = new Enemy(10, 0);
+            player.attack(target);
+            assertEquals("Expected: 4, Recived: " + target.health, target.health, 4);
 		}
 
 		public function testAttackTargetOutOfRange(): void{
-            var player:Player = new Player;
-            var target:Player = new Player;
-            //player.attack();
-            var targetHealthAfter:Number = target.getHealth();
-            assertEquals("Expected:100, Recived: " + targetHealthAfter, targetHealthAfter, 50);
+            var player:Player = new Player(40, 0);
+			player.acceleration.x = -1;
+			player.acceleration.x = 0;
+            var target:Enemy = new Enemy(0, 0);
+            player.attack(target);
+            assertEquals("Expected: 5, Recived: " + target.health, target.health, 5);
 		}
 	}
 }

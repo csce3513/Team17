@@ -9,14 +9,11 @@ package
 		{
 			super();
 			addTest(new Tests("TestHealth"));
-			//addTest(new Tests("TestGetAngleMetod"));
-			//addTest(new Tests("testAttackTargetInRange"));
-			//addTest(new Tests("testAttackTargetOutOfRange"));
-			addTest(new Tests("TestWorldObject"));
-			addTest(new Tests("TestTestEnemy"));
-			addTest(new Tests("TestGetAngleMethod"));
 			addTest(new Tests("testAttackTargetInRange"));
 			addTest(new Tests("testAttackTargetOutOfRange"));
+			addTest(new Tests("TestWorldObject"));
+			addTest(new Tests("TestTestEnemy"));
+
 		}
 		
 	}
