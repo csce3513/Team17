@@ -99,7 +99,10 @@ package
 		
 		private function loadLevel(l:Number):void {
 			[Embed(source = "../assets/GrassTileSet.png")] var grassTiles:Class;
-			[Embed(source = "../assets/l0.txt", mimeType="application/octet-stream")] var data:Class;
+			[Embed(source = "../assets/l0.txt", mimeType = "application/octet-stream")] var data:Class;
+			[Embed(source = "../assets/forest2.jpg")] var ImgBackdrop:Class;
+			var _GroundBackdrop:Backdrop = new Backdrop( -240, -300, ImgBackdrop, .3);		
+			add (_GroundBackdrop);
 			var stringData:Object = new data();
 			var levelData:String = stringData.toString(); // converts the level text file to a string for parsing.
 			level = new FlxTilemap();
