@@ -8,6 +8,7 @@ package
 		{
 		}
 		
+		public var enemies:FlxGroup = new FlxGroup;
 		public var coordBox:FlxText;
 		public var coords:FlxPoint = new FlxPoint(0, 0);
 		public var level:FlxTilemap;
@@ -35,6 +36,7 @@ package
 			add(player);
 			
 			testEnemy = new Enemy(60, 65, 60, 65, 95, 65);
+			enemies.add(testEnemy);
 			add(testEnemy);
 			
 			coordBox = new FlxText(250, 4, 200);
@@ -59,9 +61,11 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			
+			//if (testEnemy.x - player.x < testEnemy.getMeleeAttackZone().width && testEnemy.x - player.x > (-1*testEnemy.getMeleeAttackZone().width)) testEnemy.attack(player);
+			if (!player.isInvulnerable && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) testEnemy.attack(player);
 			player.acceleration.x = 0;
 			bar.scale.x = player.health * 5;
+			updateCoordBox();
 			
 			if (FlxG.keys.justPressed("P")) {
 				FlxG.mouse.hide();
@@ -72,8 +76,6 @@ package
 				FlxG.mouse.show();
 				return pauseGroup.update();
 			}
-			
-			updateCoordBox();
 			
 			if (FlxG.keys.justPressed("H")) {
 				player.doDamage(1);

@@ -1,11 +1,14 @@
 package  
 {	
+	import flash.utils.Timer;
 	import org.flixel.*; 
 	public class Player extends FlxSprite
 	{
 		[Embed(source = '../assets/pirate_sheet.png')] private var piratePNG:Class;
 		
 		private var maxHealth:Number = 10;
+		public var isInvulnerable:Boolean = false;
+		public var invulnerableTimer:FlxTimer = new FlxTimer();
 		public function Player(X:Number=0,Y:Number=0) 
 		{
 			super(X, Y);
@@ -28,6 +31,8 @@ package
 		{
 		super.update();
 		
+		if (invulnerableTimer.finished) setVulnerable();
+		
 		if (FlxG.keys.justPressed("SPACE") && this.isTouching(FlxObject.FLOOR))
 		{
 			velocity.y = -maxVelocity.y / 1.5;
@@ -39,11 +44,11 @@ package
 		
 		if (FlxG.keys.LEFT)
 		{
-				acceleration.x -= drag.x;
-				//acceleration.x = -maxVelocity.x * 4;
-				facing = FlxObject.LEFT;
-				if(velocity.y == 0)//prevents overiding the jump animation
-				play("walk");
+			acceleration.x -= drag.x;
+			//acceleration.x = -maxVelocity.x * 4;
+			facing = FlxObject.LEFT;
+			if(velocity.y == 0)//prevents overiding the jump animation
+			play("walk");
 		}
 		if (FlxG.keys.RIGHT)
 		{
@@ -62,6 +67,8 @@ package
 		public function doDamage(damage:Number):void{
 			health -= damage;
 			if (health < 1) die();
+			setInvulnerable();
+			flicker(2);
 		}
 	
 		//Basic function to give health back to the player
@@ -76,6 +83,22 @@ package
 		
 		public function die():void {
 			 FlxG.shake(0.1, .5, FlxG.resetGame, false, 0);
+		}
+		
+		public function setInvulnerable():void {
+			isInvulnerable = true;
+			invulnerableTimer = new FlxTimer();
+			invulnerableTimer.start(2, 1);
+		}
+		
+		public function setVulnerable():void {
+			isInvulnerable = false;
+		}
+		
+		public function getHitBox():FlxRect {
+			var coords:FlxPoint = getScreenXY();
+			var hitbox:FlxRect = new FlxRect(coords.x , coords.y, width, height);
+			return hitbox;
 		}
 	}
 

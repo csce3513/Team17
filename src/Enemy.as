@@ -16,14 +16,14 @@ package
 			loadGraphic(stickmanGraphic, true, true, 15, 24);
 			ePath.addAt(pathStartX, pathStartY, 0);
 			ePath.addAt(pathEndX, pathEndY, 1);
-			this.followPath(ePath, 25, PATH_LOOP_FORWARD, false);
+			followPath(ePath, 25, PATH_LOOP_FORWARD, false);
 			maxHealth = 5;
 			health = 5; // setters
 			solid = true;
 			moves = true;
 			immovable = true;
 		}
-		
+	
 		public function doDamage(damage:Number):void {
 			health -= damage;
 			if (health < 1) die();
@@ -36,6 +36,20 @@ package
 		public function heal(heal:Number):void {
 			health += heal;
 			if (health > maxHealth) health = maxHealth;
+		}
+		
+		public function attack(p:Player):void {
+			//stopFollowingPath();
+			p.doDamage(1);
+			//followPath(ePath, 25, PATH_LOOP_FORWARD, false);
+		}
+		
+		public function getMeleeAttackZone():FlxRect {
+			var attackBox:FlxRect;
+			var currentCoords:FlxPoint = new FlxPoint();
+			currentCoords = getScreenXY();
+			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 12, 45, 5);
+			return attackBox;
 		}
 		
 	}
