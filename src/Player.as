@@ -7,10 +7,15 @@ package
 		[Embed(source = '../assets/pirate_sheet.png')] private var piratePNG:Class;
 		
 		private var maxHealth:Number = 10;
+		private var startingX:Number;
+		private var startingY:Number;
+		public var lives:Number = 3;
 		public var isInvulnerable:Boolean = false;
 		public var invulnerableTimer:FlxTimer = new FlxTimer();
 		public function Player(X:Number=0,Y:Number=0) 
 		{
+			startingX = X;
+			startingY = Y;
 			super(X, Y);
 			loadGraphic(piratePNG, true, true, 24, 24, true);
 			addAnimation("walk", [0, 1, 0, 2], 10, true);
@@ -25,7 +30,6 @@ package
 			acceleration.y =  200;
 			drag.x = maxVelocity.x * 4;
 			health = maxHealth;
-			
 		}
 		override public function update():void
 		{
@@ -83,7 +87,18 @@ package
 		}
 		
 		public function die():void {
-			 FlxG.shake(0.1, .5, FlxG.resetGame, false, 0);
+			lives -= 1;
+			if (lives < 0) FlxG.shake(0.1, .5, FlxG.resetGame, false, 0); 
+			else  {
+				FlxG.shake(0.1, .5, null, false, 0);
+				this.reset(startingX, startingY);
+				health = maxHealth;
+			}
+			
+			// add a custom level reset function call instead of resetState.
+			// reset player location and decrement lives, reset enemy ststes and respawn, respawn world object.
+			
+			
 		}
 		
 		public function setInvulnerable():void {

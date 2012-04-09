@@ -10,6 +10,7 @@ package
 		
 		public var enemies:FlxGroup = new FlxGroup;
 		public var coordBox:FlxText;
+		public var lifeCounter:FlxText;
 		public var coords:FlxPoint = new FlxPoint(0, 0);
 		public var level:FlxTilemap;
 		public var testEnemy:Enemy;
@@ -39,6 +40,7 @@ package
 			enemies.add(testEnemy);
 			add(testEnemy);
 			
+			// adds a constantly updating textbox of the player's coordinates.  for testing
 			coordBox = new FlxText(250, 4, 200);
 			coordBox.scrollFactor.x = coordBox.scrollFactor.y = 0;
 			coordBox.color = 0xfff0000;
@@ -62,7 +64,7 @@ package
 		{
 			FlxG.collide();
 			if (testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) testEnemy.attack(player);
-			bar.scale.x = player.health * 5;
+			bar.scale.x = player.health * 5;5
 			updateCoordBox();
 			
 			if (FlxG.keys.justPressed("P")) {
@@ -90,8 +92,8 @@ package
 			//if player falls into a pit
 			if (player.y > FlxG.height) {
 				player.doDamage(1);
-			}			
-				
+			}
+			if (player.lives > -1) lifeCounter.text = "Lives = " + player.lives.toString();
 			super.update();		
 		}
 		
@@ -127,6 +129,10 @@ package
 			bar.origin.x = bar.origin.y = 0; //Zero out the origin
 			bar.scale.x = 50; //Fill up the health bar all the way
 			add(bar);
+			
+			lifeCounter = new FlxText(60, 3, 50, "Lives = " + player.lives.toString());
+			lifeCounter.scrollFactor.x = lifeCounter.scrollFactor.y = 0;
+			add(lifeCounter);
 		}
 		
 		public function updateCoordBox():void {

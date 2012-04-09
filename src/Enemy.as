@@ -26,11 +26,7 @@ package
 	
 		public function doDamage(damage:Number):void {
 			health -= damage;
-			if (health < 1) die();
-		}
-		
-		public function die():void {
-			kill();
+			if (health < 1) kill();
 		}
 		
 		public function heal(heal:Number):void {
