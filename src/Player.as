@@ -30,7 +30,8 @@ package
 		override public function update():void
 		{
 		super.update();
-		
+		acceleration.x = 0;
+
 		if (invulnerableTimer.finished) setVulnerable();
 		
 		if (FlxG.keys.justPressed("SPACE") && this.isTouching(FlxObject.FLOOR))
@@ -99,6 +100,19 @@ package
 			var coords:FlxPoint = getScreenXY();
 			var hitbox:FlxRect = new FlxRect(coords.x , coords.y, width, height);
 			return hitbox;
+		}
+		
+		public function getMeleeAttackZone():FlxRect {
+			var attackBox:FlxRect;
+			var currentCoords:FlxPoint = new FlxPoint();
+			currentCoords = getScreenXY();
+			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 12, 64, 5);
+			return attackBox;
+		}
+		
+		public function attack(e:Enemy):void {
+			if (getMeleeAttackZone().overlaps(e.getHitBox()))
+				e.doDamage(1);
 		}
 	}
 

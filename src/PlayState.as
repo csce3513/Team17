@@ -35,7 +35,7 @@ package
 			player = new Player(level.width / 2 - 8)
 			add(player);
 			
-			testEnemy = new Enemy(60, 65, 60, 65, 95, 65);
+			testEnemy = new Enemy(60, 67, 60, 67, 95, 67);
 			enemies.add(testEnemy);
 			add(testEnemy);
 			
@@ -61,9 +61,8 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			//if (testEnemy.x - player.x < testEnemy.getMeleeAttackZone().width && testEnemy.x - player.x > (-1*testEnemy.getMeleeAttackZone().width)) testEnemy.attack(player);
+			
 			if (!player.isInvulnerable && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) testEnemy.attack(player);
-			player.acceleration.x = 0;
 			bar.scale.x = player.health * 5;
 			updateCoordBox();
 			
@@ -80,15 +79,13 @@ package
 			if (FlxG.keys.justPressed("H")) {
 				player.doDamage(1);
 			}
+			
 			if (FlxG.keys.justPressed("G")) {
 				player.heal(1);
 			}
 			
-			if (FlxG.keys.justPressed("N")) {
-				testEnemy.doDamage(1);
-			}
-			if (FlxG.keys.justPressed("M")) {
-				testEnemy.heal(1);
+			if (FlxG.keys.justPressed("C")) {
+				player.attack(testEnemy);
 			}
 			
 			//if player falls into a pit

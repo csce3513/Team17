@@ -40,7 +40,7 @@ package
 		
 		public function attack(p:Player):void {
 			//stopFollowingPath();
-			p.doDamage(1);
+			if (alive) p.doDamage(1);
 			//followPath(ePath, 25, PATH_LOOP_FORWARD, false);
 		}
 		
@@ -48,10 +48,15 @@ package
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 12, 45, 5);
+			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 12, 35, 5);
 			return attackBox;
 		}
 		
+		public function getHitBox():FlxRect {
+			var coords:FlxPoint = getScreenXY();
+			var hitbox:FlxRect = new FlxRect(coords.x , coords.y, width, height);
+			return hitbox;
+		}		
 	}
 
 }
