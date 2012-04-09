@@ -40,7 +40,7 @@ package
 		
 		public function attack(p:Player):void {
 			//stopFollowingPath();
-			if (alive) p.doDamage(1);
+			if (alive && !p.isInvulnerable) p.doDamage(1);
 			//followPath(ePath, 25, PATH_LOOP_FORWARD, false);
 		}
 		

@@ -61,8 +61,7 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			
-			if (!player.isInvulnerable && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) testEnemy.attack(player);
+			if (testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) testEnemy.attack(player);
 			bar.scale.x = player.health * 5;
 			updateCoordBox();
 			
