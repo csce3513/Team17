@@ -127,7 +127,7 @@ package
 		
 		public function getHitBox():FlxRect {
 			var coords:FlxPoint = getScreenXY();
-			var hitbox:FlxRect = new FlxRect(coords.x , coords.y, width, height);
+			var hitbox:FlxRect = new FlxRect(coords.x + 6, coords.y, width, height);
 			return hitbox;
 		}
 		

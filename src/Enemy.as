@@ -19,7 +19,6 @@ package
 			ePath.addAt(pathStartX, pathStartY, 0);
 			ePath.addAt(pathEndX, pathEndY, 1);
 			patroller = p;
-			if (patroller)	followPath(ePath, 25, PATH_LOOP_FORWARD, false);
 			maxHealth = 5;
 			health = 5; // setters
 			solid = true;
@@ -29,7 +28,16 @@ package
 			width = 10;
 			height = 18;
 			offset.x = 8;
+			
+			addAnimation("walk", [2, 1, 2, 0], 12, true);
+			addAnimation("attack", [3,4,5], 12, true);
 			//offset.y = 2;
+			
+			if (patroller) {
+				followPath(ePath, 15, PATH_LOOP_FORWARD, false);
+				play("walk");
+			}
+			
 
 		}
 	
@@ -48,6 +56,7 @@ package
 			//stopFollowingPath();
 			if (alive && !p.isInvulnerable) {
 				p.doDamage(1);
+				play("attack");
 				p.reactToAttack();
 			}
 			
@@ -58,7 +67,7 @@ package
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x , currentCoords.y, 30, 5);
+			attackBox = new FlxRect(currentCoords.x , currentCoords.y, 25, 5);
 			return attackBox;
 		}
 		
