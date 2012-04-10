@@ -35,6 +35,7 @@ package
 			acceleration.y =  200;
 			drag.x = maxVelocity.x * 4;
 			health = maxHealth;
+			attackDelay.start(.1, 1);
 		}
 		override public function update():void
 		{
@@ -50,9 +51,9 @@ package
 	
 		
 		//Plays jump animation during jumping and falling
-		if (velocity.y < 0)
+		if (velocity.y < 0 && attackDelay.finished)
 			play("jump");
-		if (velocity.y > 0)
+		if (velocity.y > 0 && attackDelay.finished)
 			play("fall");
 		
 		if (FlxG.keys.LEFT)
@@ -60,7 +61,7 @@ package
 			acceleration.x -= drag.x;
 			//acceleration.x = -maxVelocity.x * 4;
 			facing = FlxObject.LEFT;
-			if(velocity.y == 0)//prevents overiding the jump animation
+			if(velocity.y == 0 && attackDelay.finished)//prevents overiding the jump animation
 			play("walk");
 		}
 		if (FlxG.keys.RIGHT)
@@ -68,7 +69,7 @@ package
 			//acceleration.x = maxVelocity.x * 4;
 			acceleration.x += drag.x;
 			facing = FlxObject.RIGHT;
-			if(velocity.y == 0)
+			if(velocity.y == 0 && attackDelay.finished)
 			play("walk");
 		}
 		
