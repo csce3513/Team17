@@ -63,7 +63,7 @@ package
 			//acceleration.x = -maxVelocity.x * 4;
 			facing = FlxObject.LEFT;
 			if(velocity.y == 0)//prevents overiding the jump animation
-			play("walk");
+			play("slash1");
 		}
 		if (FlxG.keys.RIGHT)
 		{
@@ -71,7 +71,7 @@ package
 			acceleration.x += drag.x;
 			facing = FlxObject.RIGHT;
 			if(velocity.y == 0)
-			play("walk");
+			play("slash1");
 		}
 		//resets pose back to idle on rest
 		if (this.acceleration.x == 0 && this.velocity.y == 0)
