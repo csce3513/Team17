@@ -8,16 +8,19 @@ package
 		{
 		}
 		
+		public var enemies:FlxGroup = new FlxGroup;
+		public var coordBox:FlxText;
+		public var lifeCounter:FlxText;
+		public var coords:FlxPoint = new FlxPoint(0, 0);
 		public var level:FlxTilemap;
 		public var testEnemy:Enemy;
 		public var player:Player;
-		public var o:worldObject;
 		private var paused:Boolean;
 		public var pauseGroup:FlxGroup;
 		private var quitBtn:FlxButton;
 		private var cam:FlxCamera;
-		private var vel:int;
 		private var bar:FlxSprite;
+		private var currentLevel:Number = 0;
 
 
 		override public function create():void
@@ -28,53 +31,22 @@ package
 			paused = false;
 			pauseGroup = new FlxGroup();
 			
-			var data:Array = new Array (
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2);
-			level = new FlxTilemap();
-			level.loadMap(FlxTilemap.arrayToCSV(data, 40), FlxTilemap.ImgAuto, 0, 0, FlxTilemap.AUTO);
-			add(level);
+			loadLevel(currentLevel);
 			
 			player = new Player(level.width / 2 - 8)
-
 			add(player);
 			
-			drawHealthBar();
-			
-			o = new worldObject();
-			add(o);
-			
-			testEnemy = new Enemy();
+			testEnemy = new Enemy(60, 67, 60, 67, 95, 67, true);
+			enemies.add(testEnemy);
 			add(testEnemy);
+			
+			// adds a constantly updating textbox of the player's coordinates.  for testing
+			coordBox = new FlxText(250, 4, 200);
+			coordBox.scrollFactor.x = coordBox.scrollFactor.y = 0;
+			coordBox.color = 0xfff0000;
+			add(coordBox);
+			
+			drawHealthBar();
 			
 			cam = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			cam.follow(player);
@@ -91,9 +63,12 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			
-			player.acceleration.x = 0;
-			bar.scale.x = player.getHealth() * 5;
+			if (testEnemy.attackTimer.finished && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) {
+				testEnemy.attack(player);
+				testEnemy.justAttacked();
+			}
+			bar.scale.x = player.health * 5;5
+			updateCoordBox();
 			
 			if (FlxG.keys.justPressed("P")) {
 				FlxG.mouse.hide();
@@ -107,20 +82,38 @@ package
 			
 			if (FlxG.keys.justPressed("H")) {
 				player.doDamage(1);
-				//bar.scale.x = bar.scale.x - 5;
-			}
-			if (FlxG.keys.justPressed("G")) {
-				player.heal(1);
-				//bar.scale.x = bar.scale.x + 5;
 			}
 			
-			//if player falls into pit
+			if (FlxG.keys.justPressed("G")) {
+				player.heal(1);
+			}
+			
+			if (FlxG.keys.justPressed("C")) {
+				player.attack(testEnemy);
+				player.play("slash1");
+			}
+			
+			//if player falls into a pit
 			if (player.y > FlxG.height) {
 				player.doDamage(1);
-				//bar.scale.x = bar.scale.x - 5;
-			}			
-				
+			}
+			if (player.lives > -1) lifeCounter.text = "Lives = " + player.lives.toString();
 			super.update();		
+		}
+		
+		private function loadLevel(l:Number):void {
+			[Embed(source = "../assets/GrassTileSet.png")] var grassTiles:Class;
+			[Embed(source = "../assets/l0.txt", mimeType = "application/octet-stream")] var data:Class;
+			[Embed(source = "../assets/forest_small.png")] var ImgBackdrop:Class;
+			var _GroundBackdrop:Backdrop = new Backdrop( 0, 5, ImgBackdrop, .3);		
+			add (_GroundBackdrop);
+			var stringData:Object = new data();
+			var levelData:String = stringData.toString(); // converts the level text file to a string for parsing.
+			level = new FlxTilemap();
+			//level.loadMap(FlxTilemap.arrayToCSV(levelArray, 80), grassTiles, 8, 8);
+			level.loadMap(levelData, grassTiles, 8, 8);
+			add(level);
+			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 		}
 		
 		private function drawHealthBar():void {
@@ -140,11 +133,19 @@ package
 			bar.origin.x = bar.origin.y = 0; //Zero out the origin
 			bar.scale.x = 50; //Fill up the health bar all the way
 			add(bar);
+			
+			lifeCounter = new FlxText(60, 3, 50, "Lives = " + player.lives.toString());
+			lifeCounter.scrollFactor.x = lifeCounter.scrollFactor.y = 0;
+			add(lifeCounter);
+		}
+		
+		public function updateCoordBox():void {
+			coords = player.getScreenXY();
+			coordBox.text = "X: " + coords.x.toFixed(0).toString() + ", Y: " + coords.y.toFixed(0).toString();
 		}
 		
 		override public function draw():void {
-			if(paused)
-				return pauseGroup.draw();
+			if(paused) return pauseGroup.draw();
 			super.draw();
 		}
 		
