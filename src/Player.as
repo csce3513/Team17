@@ -3,7 +3,7 @@ package
 	import org.flixel.*; 
 	public class Player extends FlxSprite
 	{
-		[Embed(source = '../assets/pirate_sheet.png')] private var piratePNG:Class;
+		[Embed(source = '../assets/RowTest.png')] private var piratePNG:Class;
 		
 		private var maxHealth:Number = 10;
 		public function Player(X:Number=0,Y:Number=0) 
