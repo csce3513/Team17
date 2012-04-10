@@ -16,7 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\Documents\Projects\AsUnit\framework\as3" />
+    <class path="..\..\..\asunit\framework\as3" />
   </classpaths>
   <!-- Build options -->
   <build>

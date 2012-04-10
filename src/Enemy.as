@@ -54,7 +54,7 @@ package
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 12, 35, 5);
+			attackBox = new FlxRect(currentCoords.x , currentCoords.y - 1, 30, 5);
 			return attackBox;
 		}
 		

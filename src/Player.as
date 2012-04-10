@@ -7,6 +7,7 @@ package
 		[Embed(source = '../assets/Pirate30x24.png')] private var piratePNG:Class;
 		
 		private var maxHealth:Number = 10;
+		public var attackDelay:FlxTimer = new FlxTimer();
 		private var startingX:Number;
 		private var startingY:Number;
 		public var lives:Number = 3;
@@ -50,12 +51,9 @@ package
 		
 		//Plays jump animation during jumping and falling
 		if (velocity.y < 0)
-		play("jump");
+			play("jump");
 		if (velocity.y > 0)
-		play("fall");
-		
-		if (FlxG.keys.justPressed("C"))
-		play("slash1");
+			play("fall");
 		
 		if (FlxG.keys.LEFT)
 		{
@@ -63,7 +61,7 @@ package
 			//acceleration.x = -maxVelocity.x * 4;
 			facing = FlxObject.LEFT;
 			if(velocity.y == 0)//prevents overiding the jump animation
-			play("slash1");
+			play("walk");
 		}
 		if (FlxG.keys.RIGHT)
 		{
@@ -71,11 +69,15 @@ package
 			acceleration.x += drag.x;
 			facing = FlxObject.RIGHT;
 			if(velocity.y == 0)
-			play("slash1");
+			play("walk");
 		}
+		
+		if (FlxG.keys.justPressed("C")) {
+			attackDelay.start(.3, 1);
+		}
+		
 		//resets pose back to idle on rest
-		if (this.acceleration.x == 0 && this.velocity.y == 0)
-			if(!(FlxG.keys.justPressed("C")))
+		if (this.acceleration.x == 0 && this.velocity.y == 0 && attackDelay.finished)
 			play("idle");
 		}
 
