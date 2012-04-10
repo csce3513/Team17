@@ -135,13 +135,22 @@ package
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 12, 64, 5);
+			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 8, 64, 8);
 			return attackBox;
 		}
 		
 		public function attack(e:Enemy):void {
 			if (getMeleeAttackZone().overlaps(e.getHitBox()))
 				e.doDamage(1);
+		}
+		
+		public function reactToAttack():void {
+			if (velocity.x == 0) {
+				if (facing == LEFT) velocity.x = 200;
+				if (facing == RIGHT) velocity.x = -200;
+			} else if (velocity.x > 0 && velocity.x < 100) velocity.x = -velocity.x * 2;
+			else velocity.x = -velocity.x * 1.5;
+			
 		}
 	}
 

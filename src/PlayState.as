@@ -33,10 +33,10 @@ package
 			
 			loadLevel(currentLevel);
 			
-			player = new Player(level.width / 2 - 8)
+			player = new Player(35, 220)
 			add(player);
 			
-			testEnemy = new Enemy(60, 67, 60, 67, 95, 67, true);
+			testEnemy = new Enemy(60, 66, 60, 66, 95, 66, true);
 			enemies.add(testEnemy);
 			add(testEnemy);
 			

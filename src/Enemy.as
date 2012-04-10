@@ -46,7 +46,11 @@ package
 		
 		public function attack(p:Player):void {
 			//stopFollowingPath();
-			if (alive && !p.isInvulnerable) p.doDamage(1);
+			if (alive && !p.isInvulnerable) {
+				p.doDamage(1);
+				p.reactToAttack();
+			}
+			
 			//followPath(ePath, 25, PATH_LOOP_BACKWARD, false);
 		}
 		
@@ -54,7 +58,7 @@ package
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x , currentCoords.y - 1, 30, 5);
+			attackBox = new FlxRect(currentCoords.x , currentCoords.y, 30, 5);
 			return attackBox;
 		}
 		
