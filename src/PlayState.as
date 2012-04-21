@@ -36,7 +36,7 @@ package
 			player = new Player(35, 220)
 			add(player);
 			
-			testEnemy = new Enemy(60, 66, 60, 66, 95, 66, true);
+			testEnemy = new Enemy(60, 66, 60, 66, 95, 66);
 			enemies.add(testEnemy);
 			add(testEnemy);
 			
@@ -63,7 +63,7 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			if (testEnemy.attackTimer.finished && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) {
+			if (testEnemy.attackDelay.finished && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) {
 				testEnemy.attack(player);
 				testEnemy.justAttacked();
 			}
@@ -94,13 +94,16 @@ package
 			}
 			
 			//if player falls into a pit
-			if (player.y > FlxG.height) {
-				player.doDamage(1);
-			}
+			if (player.y > FlxG.height)	player.doDamage(1);
+			//unless it's game over, update life counter
 			if (player.lives > -1) lifeCounter.text = "Lives = " + player.lives.toString();
+			if (player.health < 1) {
+				player.reset(player.getStartingX(), player.getStartingY());
+			}
 			super.update();		
 		}
 		
+		//loads level and eventually monster coordinate lists
 		private function loadLevel(l:Number):void {
 			[Embed(source = "../assets/GrassTileSet.png")] var grassTiles:Class;
 			[Embed(source = "../assets/l0.txt", mimeType = "application/octet-stream")] var data:Class;
@@ -116,6 +119,7 @@ package
 			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 		}
 		
+		//draws the health bar sprites and the life counter.
 		private function drawHealthBar():void {
 			var frame:FlxSprite = new FlxSprite(4,4);
 			frame.makeGraphic(52,10); //White frame for the health bar
@@ -139,6 +143,7 @@ package
 			add(lifeCounter);
 		}
 		
+		//updates player coordinates. delete for final
 		public function updateCoordBox():void {
 			coords = player.getScreenXY();
 			coordBox.text = "X: " + coords.x.toFixed(0).toString() + ", Y: " + coords.y.toFixed(0).toString();

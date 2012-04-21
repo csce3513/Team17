@@ -25,7 +25,7 @@ package
 			addAnimation("jump", [3], 0, false);
 			addAnimation("fall", [4], 0, false);
 			addAnimation("slash1", [5,6,7], 10, true);
-			
+			invulnerableTimer.start(.1, 1);
 			width = 20;
 			height = 20;
 			offset.x = 2;
@@ -42,7 +42,7 @@ package
 		super.update();
 		acceleration.x = 0;
 
-		if (invulnerableTimer.finished) setVulnerable();
+		if (invulnerableTimer.finished) setInvulnerable(false);
 		
 		if (FlxG.keys.justPressed("SPACE") && this.isTouching(FlxObject.FLOOR))
 		{
@@ -84,10 +84,11 @@ package
 
 		//Basic function to do damage to the player.
 		public function doDamage(damage:Number):void{
-			health -= damage;
-			if (health < 1) die();
-			setInvulnerable();
-			flicker(2);
+			if (!isInvulnerable) {
+				health -= damage;
+				reactToAttack();
+				if (health < 1) die();
+			}
 		}
 	
 		//Basic function to give health back to the player
@@ -111,23 +112,28 @@ package
 			
 			// add a custom level reset function call instead of resetState.
 			// reset player location and decrement lives, reset enemy ststes and respawn, respawn world object.
-			
-			
 		}
 		
-		public function setInvulnerable():void {
+		public function setInvulnerable(inv:Boolean = true):void {
+			if (inv == true)
+			{
 			isInvulnerable = true;
-			invulnerableTimer = new FlxTimer();
-			invulnerableTimer.start(2, 1);
-		}
-		
-		public function setVulnerable():void {
+				if (invulnerableTimer.finished) {
+					invulnerableTimer.start(2, 1);
+					flicker(2);
+				}
+			}
+			else
 			isInvulnerable = false;
 		}
 		
+		//public function setVulnerable():void {
+			//isInvulnerable = false;
+		//}
+		
 		public function getHitBox():FlxRect {
 			var coords:FlxPoint = getScreenXY();
-			var hitbox:FlxRect = new FlxRect(coords.x + 6, coords.y, width, height);
+			var hitbox:FlxRect = new FlxRect(coords.x + 6, coords.y, 24, 24);
 			return hitbox;
 		}
 		
@@ -150,7 +156,15 @@ package
 				if (facing == RIGHT) velocity.x = -200;
 			} else if (velocity.x > 0 && velocity.x < 100) velocity.x = -velocity.x * 2;
 			else velocity.x = -velocity.x * 1.5;
-			
+			setInvulnerable();
+		}
+		
+		public function getStartingX():Number {
+			return startingX;
+		}
+		
+		public function getStartingY():Number {
+			return startingY;
 		}
 	}
 
