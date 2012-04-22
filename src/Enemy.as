@@ -43,6 +43,7 @@ package
 		}
 	
 		override public function update():void {
+						
 			if (attackTimer.finished == true && lastAnim == "attack")
 			{
 				play("walk");
@@ -57,25 +58,27 @@ package
 			if (health < 1) kill();
 		}
 		
-		public function heal(heal:Number):void {
-			health += heal;
-			if (health > maxHealth) health = maxHealth;
-		}
+		//public function heal(heal:Number):void {
+			//health += heal;
+			//if (health > maxHealth) health = maxHealth;
+		//}
 		
-		public function attack(p:Player):void {
-			if (alive) {
+		public function tryAttack(p:Player):Boolean {
+			if (alive && getMeleeAttackZone().overlaps(p.getHitBox()) && attackDelay.finished) {
 				stopFollowingPath();
 				p.doDamage(1);
 				play("attack");
 				lastAnim = "attack";
+				return true;
 			}
+			return false;
 		}
-		
+
 		public function getMeleeAttackZone():FlxRect {
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x , currentCoords.y, 25, 5);
+			attackBox = new FlxRect(currentCoords.x, currentCoords.y-1, 22, 5);
 			return attackBox;
 		}
 		

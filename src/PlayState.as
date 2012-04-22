@@ -36,9 +36,17 @@ package
 			player = new Player(35, 220)
 			add(player);
 			
-			testEnemy = new Enemy(60, 66, 60, 66, 95, 66);
-			enemies.add(testEnemy);
-			add(testEnemy);
+			//testEnemy = new Enemy(60, 66, 60, 66, 95, 66);
+			//add(testEnemy);
+			//enemies.add(testEnemy);
+			//
+			//testEnemy = new Enemy(340, 122, 320, 122, 356, 122);
+			//add(testEnemy);
+			//enemies.add(testEnemy);
+			//
+			//testEnemy = new Enemy(225, 66, 210, 66, 246, 66);
+			//add(testEnemy);
+			//enemies.add(testEnemy);
 			
 			// adds a constantly updating textbox of the player's coordinates.  for testing
 			coordBox = new FlxText(250, 4, 200);
@@ -63,11 +71,15 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			if (testEnemy.attackDelay.finished && testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) {
-				testEnemy.attack(player);
-				testEnemy.justAttacked();
+			//if (testEnemy.getMeleeAttackZone().overlaps(player.getHitBox())) {
+			for (var i:int = 0; i < enemies.length; i++) {
+				FlxG.overlap(enemies.members[i], player, doEnemyAttack(enemies.members[i]));
 			}
-			bar.scale.x = player.health * 5;5
+
+			//if (testEnemy.tryAttack(player))
+				//testEnemy.justAttacked();
+					
+			bar.scale.x = player.health * 5;
 			updateCoordBox();
 			
 			if (FlxG.keys.justPressed("P")) {
@@ -89,12 +101,15 @@ package
 			}
 			
 			if (FlxG.keys.justPressed("C")) {
-				player.attack(testEnemy);
+				for (var i:int = 0; i < enemies.length; i++)
+					player.attack(enemies.members[i]);
+				//player.attack(testEnemy);
+				player.attackDelay.start(.3, 1);
 				player.play("slash1");
 			}
 			
 			//if player falls into a pit
-			if (player.y > FlxG.height)	player.doDamage(1);
+			if (player.y > FlxG.height)	player.doDamage(10);
 			//unless it's game over, update life counter
 			if (player.lives > -1) lifeCounter.text = "Lives = " + player.lives.toString();
 			if (player.health < 1) {
@@ -117,6 +132,21 @@ package
 			level.loadMap(levelData, grassTiles, 8, 8);
 			add(level);
 			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
+			
+			
+			[Embed(source = "../assets/l0Enemies.txt", mimeType = "application/octet-stream")] var enemyData:Class;
+			var stringEnemyData:Object = new enemyData();
+			var oneEnemyData:Array = stringEnemyData.toString().split(';');
+			var oneEnemyNumber:Array = new Array;
+			for (var i:int = 0; i < oneEnemyData.length; i++)
+				oneEnemyNumber[i] = oneEnemyData[i].toString().split(',');
+			for (var j:int = 0; j < oneEnemyNumber.length; j++) {
+				testEnemy = new Enemy(oneEnemyNumber[j][0], oneEnemyNumber[j][1], oneEnemyNumber[j][2], oneEnemyNumber[j][3], oneEnemyNumber[j][4], oneEnemyNumber[j][5]);
+				add(testEnemy);
+				enemies.add(testEnemy);
+			}
+			//var testText:FlxText = new FlxText(200, 200, 50, oneEnemyData[2].toString());
+			//add(testText);			
 		}
 		
 		//draws the health bar sprites and the life counter.
@@ -157,6 +187,11 @@ package
 		private function onQuit():void {
 			// Go back to the MenuState
 			FlxG.switchState(new MenuState);
+		}
+		
+		private function doEnemyAttack(e:Enemy) {
+			if (e.tryAttack(player))
+				e.justAttacked();
 		}
 	}
 }

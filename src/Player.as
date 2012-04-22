@@ -73,10 +73,6 @@ package
 			play("walk");
 		}
 		
-		if (FlxG.keys.justPressed("C")) {
-			attackDelay.start(.3, 1);
-		}
-		
 		//resets pose back to idle on rest
 		if (this.acceleration.x == 0 && this.velocity.y == 0 && attackDelay.finished)
 			play("idle");
@@ -132,8 +128,10 @@ package
 		//}
 		
 		public function getHitBox():FlxRect {
+			var hitbox:FlxRect;
 			var coords:FlxPoint = getScreenXY();
-			var hitbox:FlxRect = new FlxRect(coords.x + 6, coords.y, 24, 24);
+			if (facing == LEFT)	hitbox = new FlxRect(coords.x + 6, coords.y, 24, 24);
+			else hitbox = new FlxRect(coords.x, coords.y, 24, 24);
 			return hitbox;
 		}
 		
@@ -151,10 +149,7 @@ package
 		}
 		
 		public function reactToAttack():void {
-			if (velocity.x == 0) {
-				if (facing == LEFT) velocity.x = 200;
-				if (facing == RIGHT) velocity.x = -200;
-			} else if (velocity.x > 0 && velocity.x < 100) velocity.x = -velocity.x * 2;
+			if (velocity.x > 0 && velocity.x < 100) velocity.x = -velocity.x * 2;
 			else velocity.x = -velocity.x * 1.5;
 			setInvulnerable();
 		}
