@@ -27,7 +27,7 @@ package
 		private function startGame():void
 		{
 			FlxG.mouse.hide();
-			FlxG.switchState(new PlayState);
+			FlxG.switchState(new PlayStateLevelOne);
 		}
 	}
 }

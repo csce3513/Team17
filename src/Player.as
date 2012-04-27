@@ -8,8 +8,8 @@ package
 		
 		private var maxHealth:Number = 10;
 		public var attackDelay:FlxTimer = new FlxTimer();
-		private var startingX:Number;
-		private var startingY:Number;
+		public var startingX:Number;
+		public var startingY:Number;
 		public var lives:Number = 3;
 		public var isInvulnerable:Boolean = false;
 		public var invulnerableTimer:FlxTimer = new FlxTimer();
@@ -29,7 +29,7 @@ package
 			width = 20;
 			height = 20;
 			offset.x = 2;
-			offset.y = 2;
+			offset.y = 4;
 			maxVelocity.x = 100;
 			maxVelocity.y = 220;
 			acceleration.y =  200;
@@ -59,14 +59,12 @@ package
 		if (FlxG.keys.LEFT)
 		{
 			acceleration.x -= drag.x;
-			//acceleration.x = -maxVelocity.x * 4;
 			facing = FlxObject.LEFT;
 			if(velocity.y == 0 && attackDelay.finished)//prevents overiding the jump animation
 			play("walk");
 		}
 		if (FlxG.keys.RIGHT)
 		{
-			//acceleration.x = maxVelocity.x * 4;
 			acceleration.x += drag.x;
 			facing = FlxObject.RIGHT;
 			if(velocity.y == 0 && attackDelay.finished)
@@ -123,10 +121,6 @@ package
 			isInvulnerable = false;
 		}
 		
-		//public function setVulnerable():void {
-			//isInvulnerable = false;
-		//}
-		
 		public function getHitBox():FlxRect {
 			var hitbox:FlxRect;
 			var coords:FlxPoint = getScreenXY();
@@ -139,27 +133,27 @@ package
 			var attackBox:FlxRect;
 			var currentCoords:FlxPoint = new FlxPoint();
 			currentCoords = getScreenXY();
-			attackBox = new FlxRect(currentCoords.x - 16, currentCoords.y + 8, 64, 8);
+			if (facing == LEFT)
+				attackBox = new FlxRect(currentCoords.x-15, currentCoords.y + 8, 20, height / 2);
+			else
+				attackBox = new FlxRect(currentCoords.x+18, currentCoords.y + 8, 10, height/2);
 			return attackBox;
 		}
 		
-		public function attack(e:Enemy):void {
+		public function attackSpike(e:Enemy):void {
 			if (getMeleeAttackZone().overlaps(e.getHitBox()))
 				e.doDamage(1);
+		}
+		
+		public function attackBoomeranger(b:Boomeranger):void {
+			if (getMeleeAttackZone().overlaps(b.getHitBox()))
+				b.doDamage(1);
 		}
 		
 		public function reactToAttack():void {
 			if (velocity.x > 0 && velocity.x < 100) velocity.x = -velocity.x * 2;
 			else velocity.x = -velocity.x * 1.5;
 			setInvulnerable();
-		}
-		
-		public function getStartingX():Number {
-			return startingX;
-		}
-		
-		public function getStartingY():Number {
-			return startingY;
 		}
 	}
 
