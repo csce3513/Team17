@@ -20,7 +20,7 @@ package
 		private var cam:FlxCamera;
 		private var bar:FlxSprite;
 		private var fadeTimer:FlxTimer = new FlxTimer();
-		private var endChest:TreasureChest = new TreasureChest(312, 84);
+		private var endChest:TreasureChest;
 		private var endChestSpawned:Boolean = false;
 		private var levelEnded:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
@@ -114,25 +114,24 @@ package
 			
 			if (!levelEnded) {
 				if (enemies.countDead() == enemies.length) {
+					endChest = new TreasureChest(312, 84)
 					add(endChest);
+					endChest.exists = true;
 					endChestSpawned = true;
 				}
 			}
 			
-			if (player.overlaps(endChest)) {
+			if (endChestSpawned && player.overlaps(endChest)) {
 				add(endLevelText);
+				endLevelText.scrollFactor.x = endLevelText.scrollFactor.y = 0;
 				FlxG.fade(0xff000000, 3);
 				endLevelTimer.start(5, 1);
-				//levelEnded = true;
 			}
 			
 			if (endLevelTimer.finished) {
 				FlxG.switchState(new PlayStateLevelTwo());
 			}
 			
-				//if (levelEnded && endLevelTimer.finished) {
-				//FlxG.switchState(new PlayStateLevelTwo());
-			//}
 			if (!levelEnded)
 				super.update();
 		}
