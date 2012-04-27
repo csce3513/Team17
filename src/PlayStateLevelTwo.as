@@ -140,7 +140,7 @@ package
 			add(level);
 			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 			//spawn player
-			player = new Player(35, 220);
+			player = new Player(17,484);
 			add(player);
 			
 			loadEnemies();
