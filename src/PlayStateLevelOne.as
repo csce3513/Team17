@@ -22,6 +22,7 @@ package
 		private var fadeTimer:FlxTimer = new FlxTimer();
 		private var endChest:TreasureChest;
 		private var endChestSpawned:Boolean = false;
+		private var levelEnded:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
 		private var endLevelText:FlxText = new FlxText(200, 150, 100, "You found a piece of your ship!"); 
 
