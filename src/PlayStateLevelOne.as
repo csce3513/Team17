@@ -22,7 +22,6 @@ package
 		private var fadeTimer:FlxTimer = new FlxTimer();
 		private var endChest:TreasureChest = new TreasureChest(312, 84);
 		private var endChestSpawned:Boolean = false;
-		private var levelEnded:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
 		private var endLevelText:FlxText = new FlxText(200, 150, 100, "You found a piece of your ship!"); 
 
@@ -112,29 +111,22 @@ package
 				player.reset(player.startingX, player.startingY);
 			}
 			
-			if (!levelEnded) {
-				if (enemies.countDead() == enemies.length) {
-					add(endChest);
-					endChestSpawned = true;
-				}
+			if (enemies.countDead() == enemies.length) {
+				add(endChest);
+				endChestSpawned = true;
 			}
 			
 			if (player.overlaps(endChest)) {
 				add(endLevelText);
 				FlxG.fade(0xff000000, 3);
-				endLevelTimer.start(5, 1);
-				//levelEnded = true;
+				endLevelTimer.start(4, 1);
 			}
 			
 			if (endLevelTimer.finished) {
 				FlxG.switchState(new PlayStateLevelTwo());
 			}
-			
-				//if (levelEnded && endLevelTimer.finished) {
-				//FlxG.switchState(new PlayStateLevelTwo());
-			//}
-			if (!levelEnded)
-				super.update();
+
+			super.update();
 		}
 		
 		//loads level and eventually monster coordinate lists
