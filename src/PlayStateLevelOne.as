@@ -20,7 +20,7 @@ package
 		private var cam:FlxCamera;
 		private var bar:FlxSprite;
 		private var fadeTimer:FlxTimer = new FlxTimer();
-		private var endChest:TreasureChest = new TreasureChest(312, 84);
+		private var endChest:TreasureChest;
 		private var endChestSpawned:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
 		private var endLevelText:FlxText = new FlxText(200, 150, 100, "You found a piece of your ship!"); 
@@ -110,14 +110,19 @@ package
 			if (player.health < 1) {
 				player.reset(player.startingX, player.startingY);
 			}
-			
-			if (enemies.countDead() == enemies.length) {
-				add(endChest);
-				endChestSpawned = true;
+
+			if (!levelEnded) {
+				if (enemies.countDead() == enemies.length) {
+					endChest = new TreasureChest(312, 84)
+					add(endChest);
+					endChest.exists = true;
+					endChestSpawned = true;
+				}
 			}
 			
-			if (player.overlaps(endChest)) {
+			if (endChestSpawned && player.overlaps(endChest)) {
 				add(endLevelText);
+				endLevelText.scrollFactor.x = endLevelText.scrollFactor.y = 0;
 				FlxG.fade(0xff000000, 3);
 				endLevelTimer.start(4, 1);
 			}
