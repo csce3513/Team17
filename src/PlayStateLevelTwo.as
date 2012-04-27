@@ -19,7 +19,7 @@ package
 		private var quitBtn:FlxButton;
 		private var cam:FlxCamera;
 		private var bar:FlxSprite;
-		private var endChest:worldObject;
+		private var endChest:TreasureChest;
 		private var levelEnded:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
 		private var endLevelText:FlxText = new FlxText(200, 150, 100, "You beat the level"); 
