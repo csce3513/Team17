@@ -10,7 +10,6 @@ package
 		
 		public var enemies:FlxGroup = new FlxGroup;
 		public var boomerangs:FlxGroup = new FlxGroup;
-		public var coordBox:FlxText;
 		public var lifeCounter:FlxText;
 		public var coords:FlxPoint;
 		public var level:FlxTilemap;
@@ -36,12 +35,6 @@ package
 			pauseGroup = new FlxGroup();
 			
 			loadLevel();
-			
-			// adds a constantly updating textbox of the player's coordinates.  for testing
-			coordBox = new FlxText(250, 4, 200);
-			coordBox.scrollFactor.x = coordBox.scrollFactor.y = 0;
-			coordBox.color = 0xfff0000;
-			add(coordBox);
 			
 			drawHealthBar();
 			
@@ -84,7 +77,6 @@ package
 			}
 					
 			bar.scale.x = player.health * 5;
-			updateCoordBox();
 			
 			if (FlxG.keys.justPressed("P")) {
 				FlxG.mouse.hide();
@@ -129,9 +121,10 @@ package
 				player.reset(player.startingX, player.startingY);
 			}
 
-			if (!levelEnded) {
+			if (!levelEnded && !endChestSpawned)
+				{
 				if (enemies.countDead() == enemies.length) {
-					endChest = new TreasureChest(260, 60)
+					endChest = new TreasureChest(150, 40)
 					add(endChest);
 					endChest.exists = true;
 					endChestSpawned = true;
@@ -231,12 +224,6 @@ package
 			lifeCounter.scrollFactor.x = lifeCounter.scrollFactor.y = 0;
 			lifeCounter.solid = false;
 			add(lifeCounter);
-		}
-		
-		//updates player coordinates. delete for final
-		public function updateCoordBox():void {
-			coords = player.getScreenXY();
-			coordBox.text = "X: " + coords.x.toFixed(0).toString() + ", Y: " + coords.y.toFixed(0).toString();
 		}
 		
 		override public function draw():void {
