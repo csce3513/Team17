@@ -57,12 +57,12 @@ package
 		override public function update():void 
 		{
 			FlxG.collide();
-			for (var k:int = 0; k < enemies.length; k++) {
-				if (enemies.members[k].type == "spike")
-					FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
-				else if (enemies.members[k].type == "boomeranger")
-					FlxG.overlap(enemies.members[k].getAttackZone(), player, doBoomerangerAttack(enemies.members[k]));
-			}
+			//for (var k:int = 0; k < enemies.length; k++) {
+				//if (enemies.members[k].type == "spike")
+					//FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
+				//else if (enemies.members[k].type == "boomeranger")
+					//FlxG.overlap(enemies.members[k].getAttackZone(), player, doBoomerangerAttack(enemies.members[k]));
+			//}
 					
 			bar.scale.x = player.health * 5;
 			updateCoordBox();
@@ -219,9 +219,9 @@ package
 				e.justAttacked();
 		}
 		
-		private function doBoomerangerAttack(b:Boomeranger) {
-			if (b.tryAttack(player))
-				b.justAttacked();
-		}
+		//private function doBoomerangerAttack(b:Boomeranger) {
+			//if (b.tryAttack(player))
+				//b.justAttacked();
+		//}
 	}
 }

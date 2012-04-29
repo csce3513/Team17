@@ -39,41 +39,41 @@ package
 		}
 		override public function update():void
 		{
-		super.update();
-		acceleration.x = 0;
+			super.update();
+			acceleration.x = 0;
 
-		if (invulnerableTimer.finished) setInvulnerable(false);
+			if (invulnerableTimer.finished) setInvulnerable(false);
+			
+			if (FlxG.keys.justPressed("SPACE") && this.isTouching(FlxObject.FLOOR))
+			{
+				velocity.y = -maxVelocity.y / 1.5;
+			}
 		
-		if (FlxG.keys.justPressed("SPACE") && this.isTouching(FlxObject.FLOOR))
-		{
-			velocity.y = -maxVelocity.y / 1.5;
-		}
-	
-		
-		//Plays jump animation during jumping and falling
-		if (velocity.y < 0 && attackDelay.finished)
-			play("jump");
-		if (velocity.y > 0 && attackDelay.finished)
-			play("fall");
-		
-		if (FlxG.keys.LEFT)
-		{
-			acceleration.x -= drag.x;
-			facing = FlxObject.LEFT;
-			if(velocity.y == 0 && attackDelay.finished)//prevents overiding the jump animation
-			play("walk");
-		}
-		if (FlxG.keys.RIGHT)
-		{
-			acceleration.x += drag.x;
-			facing = FlxObject.RIGHT;
-			if(velocity.y == 0 && attackDelay.finished)
-			play("walk");
-		}
-		
-		//resets pose back to idle on rest
-		if (this.acceleration.x == 0 && this.velocity.y == 0 && attackDelay.finished)
-			play("idle");
+			
+			//Plays jump animation during jumping and falling
+			if (velocity.y < 0 && attackDelay.finished)
+				play("jump");
+			if (velocity.y > 0 && attackDelay.finished)
+				play("fall");
+			
+			if (FlxG.keys.LEFT)
+			{
+				acceleration.x -= drag.x;
+				facing = FlxObject.LEFT;
+				if(velocity.y == 0 && attackDelay.finished)//prevents overiding the jump animation
+				play("walk");
+			}
+			if (FlxG.keys.RIGHT)
+			{
+				acceleration.x += drag.x;
+				facing = FlxObject.RIGHT;
+				if(velocity.y == 0 && attackDelay.finished)
+				play("walk");
+			}
+			
+			//resets pose back to idle on rest
+			if (this.acceleration.x == 0 && this.velocity.y == 0 && attackDelay.finished)
+				play("idle");
 		}
 
 		//Basic function to do damage to the player.
@@ -113,8 +113,8 @@ package
 			{
 			isInvulnerable = true;
 				if (invulnerableTimer.finished) {
-					invulnerableTimer.start(2, 1);
-					flicker(2);
+					invulnerableTimer.start(1, 1);
+					flicker(1);
 				}
 			}
 			else
@@ -151,8 +151,7 @@ package
 		}
 		
 		public function reactToAttack():void {
-			if (velocity.x > 0 && velocity.x < 100) velocity.x = -velocity.x * 2;
-			else velocity.x = -velocity.x * 1.5;
+			if (facing == LEFT) velocity.x = 150; else velocity.x = -150;
 			setInvulnerable();
 		}
 	}

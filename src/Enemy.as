@@ -9,7 +9,6 @@ package
 	public class Enemy extends FlxSprite
 	{
 		[Embed(source = "../assets/spike.png")] private var spikeGraphic:Class;
-		private var maxHealth:Number; //include in the constructor?
 		public var attackTimer:FlxTimer = new FlxTimer;
 		public var startingX:Number;
 		public var startingY:Number;
@@ -25,8 +24,7 @@ package
 			loadGraphic(spikeGraphic, true, true, 30, 24);
 			ePath.addAt(pathStartX, pathStartY, 0);
 			ePath.addAt(pathEndX, pathEndY, 1);
-			maxHealth = 3;
-			health = maxHealth; // setters
+			health = 3; // setters
 			solid = true;
 			moves = true;
 			immovable = true;

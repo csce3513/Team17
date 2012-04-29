@@ -9,6 +9,7 @@ package
 		}
 		
 		public var enemies:FlxGroup = new FlxGroup;
+		public var boomerangs:FlxGroup = new FlxGroup;
 		public var coordBox:FlxText;
 		public var lifeCounter:FlxText;
 		public var coords:FlxPoint;
@@ -60,10 +61,18 @@ package
 		{
 			FlxG.collide();
 			for (var k:int = 0; k < enemies.length; k++) {
-				if (enemies.members[k].type == "spike")
-					FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
-				else if (enemies.members[k].type == "boomeranger")
-					FlxG.overlap(enemies.members[k].getAttackZone(), player, doBoomerangerAttack(enemies.members[k]));
+				if (enemies.members[k].type == "spike" && enemies.members[k].getMeleeAttackZone().overlaps(player.getHitBox()))
+					doSpikeAttack(enemies.members[k]);
+					//FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
+				else if (enemies.members[k].type == "boomeranger") {
+					if (enemies.members[k].getAttackZone().overlaps(player.getHitBox()) && !enemies.members[k].hasActiveBoomerang && enemies.members[k].attackDelay.finished)
+						add(enemies.members[k].throwBoomerang(enemies.members[k].startingX, enemies.members[k].startingY));
+					else if (enemies.members[k].hasActiveBoomerang) {
+						enemies.members[k].checkBoomerangCollisions(player);
+						if (enemies.members[k].boomerangTimer.finished)
+							enemies.members[k].resetBoomerang();
+					}
+				}
 			}
 					
 			bar.scale.x = player.health * 5;
@@ -122,10 +131,10 @@ package
 			}
 			
 			if (endChestSpawned && player.overlaps(endChest)) {
-				add(endLevelText);
 				endLevelText.scrollFactor.x = endLevelText.scrollFactor.y = 0;
-				FlxG.fade(0xff000000, 3);
-				endLevelTimer.start(4, 1);
+				add(endLevelText);
+				endLevelTimer.start(2, 1);
+				//player.active = false;
 			}
 			
 			if (endLevelTimer.finished) {
@@ -226,14 +235,14 @@ package
 			FlxG.switchState(new MenuState);
 		}
 		
-		private function doSpikeAttack(e:Enemy) {
+		private function doSpikeAttack(e:Enemy):void {
 			if (e.tryAttack(player))
 				e.justAttacked();
 		}
 		
-		private function doBoomerangerAttack(b:Boomeranger) {
-			if (b.tryAttack(player))
-				b.justAttacked();
-		}
+		//private function doBoomerangerAttack(b:Boomeranger):void {
+			//if (b.checkBoomerangCollisions(player))
+				//b.justAttacked();
+		//}
 	}
 }
