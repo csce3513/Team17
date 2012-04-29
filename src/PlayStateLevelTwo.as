@@ -129,7 +129,7 @@ package
 			
 			[Embed(source = "../assets/GrassTileSet.png")] var Tiles:Class;
 			[Embed(source = "../assets/l1.txt", mimeType = "application/octet-stream")] var Data:Class;
-			[Embed(source = "../assets/forest_small.png")] var ImgBackdrop:Class;
+			[Embed(source = "../assets/forest_small_color.png")] var ImgBackdrop:Class;
 			_GroundBackdrop = new Backdrop( 0, 5, ImgBackdrop, 0);		
 			add (_GroundBackdrop);
 			stringData = new Data();

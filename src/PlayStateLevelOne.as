@@ -59,12 +59,20 @@ package
 		}
 		override public function update():void 
 		{
+			//loads all enemies and runs AI
 			FlxG.collide();
 			for (var k:int = 0; k < enemies.length; k++) {
 				if (enemies.members[k].type == "spike" && enemies.members[k].getMeleeAttackZone().overlaps(player.getHitBox()))
 					doSpikeAttack(enemies.members[k]);
 					//FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
 				else if (enemies.members[k].type == "boomeranger") {
+					//set boomeranger facing based on player position
+					if (enemies.members[k].startingX - player.x >= 0)
+						enemies.members[k].faceLeft();
+					else 
+						enemies.members[k].faceRight();
+						
+					//checks for attack zone and boomerang timing	
 					if (enemies.members[k].getAttackZone().overlaps(player.getHitBox()) && !enemies.members[k].hasActiveBoomerang && enemies.members[k].attackDelay.finished && enemies.members[k].alive)
 						add(enemies.members[k].throwBoomerang(enemies.members[k].startingX, enemies.members[k].startingY));
 					else if (enemies.members[k].hasActiveBoomerang) {
@@ -151,7 +159,7 @@ package
 			var levelData:String;
 			[Embed(source = "../assets/GrassTileSet.png")] var Tiles:Class;
 			[Embed(source = "../assets/l0.txt", mimeType = "application/octet-stream")] var Data:Class;
-			[Embed(source = "../assets/forest_small.png")] var ImgBackdrop:Class;
+			[Embed(source = "../assets/forest_small_color.png")] var ImgBackdrop:Class;
 			_GroundBackdrop = new Backdrop( 0, 5, ImgBackdrop, .3);		
 			add (_GroundBackdrop);
 			stringData = new Data();

@@ -10,12 +10,14 @@ package
 	 
 	public class Boomerang extends FlxSprite
 	{
-
+		[Embed(source = "../assets/boomerang.png")] private var boomerangGraphic:Class;
 		
 		public function Boomerang(_x:Number, _y:Number):void
 		{
 			super(_x, _y);
-			makeGraphic(10, 10, 0xff663300); //will add sprite for this later, brown box for now
+			loadGraphic(boomerangGraphic, true, false, 10, 10);
+			addAnimation("spin", [0,1,2,3], 8, true);
+			play("spin");
 			solid = false;
 		}
 		
