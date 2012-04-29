@@ -48,7 +48,6 @@ package
 			{
 				velocity.y = -maxVelocity.y / 1.5;
 			}
-		
 			
 			//Plays jump animation during jumping and falling
 			if (velocity.y < 0 && attackDelay.finished)
