@@ -129,9 +129,10 @@ package
 				player.reset(player.startingX, player.startingY);
 			}
 
-			if (!levelEnded) {
+			if (!levelEnded && !endChestSpawned)
+				{
 				if (enemies.countDead() == enemies.length) {
-					endChest = new TreasureChest(312, 84)
+					endChest = new TreasureChest(305, 70)
 					add(endChest);
 					endChest.exists = true;
 					endChestSpawned = true;
