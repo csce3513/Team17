@@ -65,7 +65,7 @@ package
 					doSpikeAttack(enemies.members[k]);
 					//FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
 				else if (enemies.members[k].type == "boomeranger") {
-					if (enemies.members[k].getAttackZone().overlaps(player.getHitBox()) && !enemies.members[k].hasActiveBoomerang && enemies.members[k].attackDelay.finished)
+					if (enemies.members[k].getAttackZone().overlaps(player.getHitBox()) && !enemies.members[k].hasActiveBoomerang && enemies.members[k].attackDelay.finished && enemies.members[k].alive)
 						add(enemies.members[k].throwBoomerang(enemies.members[k].startingX, enemies.members[k].startingY));
 					else if (enemies.members[k].hasActiveBoomerang) {
 						enemies.members[k].checkBoomerangCollisions(player);
