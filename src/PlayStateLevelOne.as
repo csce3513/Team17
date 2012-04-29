@@ -208,11 +208,13 @@ package
 			var frame:FlxSprite = new FlxSprite(4,4);
 			frame.makeGraphic(52,10); //White frame for the health bar
 			frame.scrollFactor.x = frame.scrollFactor.y = 0;
+			frame.solid = false;
 			add(frame);
  
 			var inside:FlxSprite = new FlxSprite(5,5);
 			inside.makeGraphic(50,8,0xff000000); //Black interior, 48 pixels wide
 			inside.scrollFactor.x = inside.scrollFactor.y = 0;
+			inside.solid = false;
 			add(inside);
  
 			bar = new FlxSprite(5,5);
@@ -220,10 +222,12 @@ package
 			bar.scrollFactor.x = bar.scrollFactor.y = 0;
 			bar.origin.x = bar.origin.y = 0; //Zero out the origin
 			bar.scale.x = 50; //Fill up the health bar all the way
+			bar.solid = false;
 			add(bar);
 			
 			lifeCounter = new FlxText(60, 3, 50, "Lives = " + player.lives.toString());
 			lifeCounter.scrollFactor.x = lifeCounter.scrollFactor.y = 0;
+			lifeCounter.solid = false;
 			add(lifeCounter);
 		}
 		

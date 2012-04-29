@@ -2,9 +2,9 @@ package
 {
 	import org.flixel.*;
 
-	public class PlayStateLevelTwo extends FlxState
+	public class PlayStateLevelThree extends FlxState
 	{
-		public function PlayStateLevelTwo()
+		public function PlayStateLevelThree()
 		{
 		}
 		
@@ -119,7 +119,7 @@ package
 			}
 			
 			//if player falls into a pit
-			if (player.y > level.height) {
+			if (player.y > FlxG.height) {
 				player.isInvulnerable = false;
 				player.doDamage(100);
 			}
@@ -131,7 +131,7 @@ package
 
 			if (!levelEnded) {
 				if (enemies.countDead() == enemies.length) {
-					endChest = new TreasureChest(260, 60)
+					endChest = new TreasureChest(366, 196)
 					add(endChest);
 					endChest.exists = true;
 					endChestSpawned = true;
@@ -146,7 +146,7 @@ package
 			}
 			
 			if (endLevelTimer.finished) {
-				FlxG.switchState(new PlayStateLevelThree());
+				FlxG.switchState(new MenuState());
 			}
 
 			super.update();
@@ -157,21 +157,19 @@ package
 			var _GroundBackdrop:Backdrop;
 			var stringData:Object;
 			var levelData:String;
-			
 			[Embed(source = "../assets/GrassTileSet.png")] var Tiles:Class;
-			[Embed(source = "../assets/l1.txt", mimeType = "application/octet-stream")] var Data:Class;
-			[Embed(source = "../assets/forest_small_color.png")] var ImgBackdrop:Class;
-			_GroundBackdrop = new Backdrop( 0, 0, ImgBackdrop, 0);		
+			[Embed(source = "../assets/l2.txt", mimeType = "application/octet-stream")] var Data:Class;
+			[Embed(source = "../assets/forest_small.png")] var ImgBackdrop:Class;
+			_GroundBackdrop = new Backdrop( 0, 5, ImgBackdrop, .3);		
 			add (_GroundBackdrop);
 			stringData = new Data();
 			levelData = stringData.toString(); // converts the level text file to a string for parsing.
 			level = new FlxTilemap();
+			//load the tilemap and draw the level
 			level.loadMap(levelData, Tiles, 8, 8);
-			level.height = 512;
 			add(level);
-			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 			//spawn player
-			player = new Player(17,484);
+			player = new Player(35, 220);
 			add(player);
 			FlxG.worldBounds = new FlxRect(0, 0, level.width, level.height);
 			loadEnemies();
@@ -183,14 +181,14 @@ package
 			var stringEnemyData:Object;
 			var oneEnemyData:Array;
 			var oneEnemyNumber:Array;
-		
-			[Embed(source = "../assets/l1Enemies.txt", mimeType = "application/octet-stream")] var enemyData:Class;
-			var stringEnemyData:Object = new enemyData();
-			var oneEnemyData:Array = stringEnemyData.toString().split(';');
-			var oneEnemyNumber:Array = new Array;
+			
+			[Embed(source = "../assets/l2Enemies.txt", mimeType = "application/octet-stream")] var enemyData:Class;
+			stringEnemyData = new enemyData();
+			oneEnemyData = stringEnemyData.toString().split(';');
+			oneEnemyNumber = new Array;
 			for (var i:int = 0; i < oneEnemyData.length; i++)
-				oneEnemyNumber[i] = oneEnemyData[i].toString().split(',');				
-
+				oneEnemyNumber[i] = oneEnemyData[i].toString().split(',');
+					
 			for (var j:int = 0; j < oneEnemyNumber.length; j++) {
 				if (oneEnemyNumber[j][0].toString() == "spike") {
 					enemySpike = new Enemy(oneEnemyNumber[j][1], oneEnemyNumber[j][2], oneEnemyNumber[j][3], oneEnemyNumber[j][4], oneEnemyNumber[j][5], oneEnemyNumber[j][6]);
@@ -224,7 +222,7 @@ package
 			bar.scrollFactor.x = bar.scrollFactor.y = 0;
 			bar.origin.x = bar.origin.y = 0; //Zero out the origin
 			bar.scale.x = 50; //Fill up the health bar all the way
-			bar.solid = false;
+			inside.solid = false;
 			add(bar);
 			
 			lifeCounter = new FlxText(60, 3, 50, "Lives = " + player.lives.toString());
@@ -249,13 +247,13 @@ package
 			FlxG.switchState(new MenuState);
 		}
 		
-		private function doSpikeAttack(e:Enemy) {
+		private function doSpikeAttack(e:Enemy):void {
 			if (e.tryAttack(player))
 				e.justAttacked();
 		}
 		
-		//private function doBoomerangerAttack(b:Boomeranger) {
-			//if (b.tryAttack(player))
+		//private function doBoomerangerAttack(b:Boomeranger):void {
+			//if (b.checkBoomerangCollisions(player))
 				//b.justAttacked();
 		//}
 	}
