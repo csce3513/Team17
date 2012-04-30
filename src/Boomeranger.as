@@ -1,11 +1,6 @@
 package  
 {
-	/**
-	 * ...
-	 * @author David Knapp
-	 */
 	import org.flixel.*;
-	import org.flixel.system.FlxAnim;
 	public class Boomeranger extends FlxSprite
 	{
 		[Embed(source = "../assets/boomeranger.png")] private var boomerangerGraphic:Class;

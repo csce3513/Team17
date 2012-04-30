@@ -1,9 +1,6 @@
 package  
 {
-	/**
-	 * ...
-	 * @author ...
-	 */
+
 	import org.flixel.*;
 	public class victoryState extends FlxState
 	{
@@ -15,7 +12,7 @@ package
 		override public function create():void
 		{
 			victoryText = new FlxText(60, 75, 200, "Congrations, you found all of the pieces of the ship and won the game! Press the spacebar to return to the title screen.");
-			
+			victoryText.color = 0xff000000;
 			add(victoryText);
 			
 			//[Embed(source = "../assets/VictoryScreenPlaceholderSmall.png")] var ImgBackdrop:Class;

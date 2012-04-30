@@ -1,12 +1,6 @@
 package  
 {
-	import org.flixel.FlxPath;
-	/**
-	 * ...
-	 * @author David Knapp
-	 */
-	
-	 import org.flixel.*;
+	import org.flixel.*;
 	 
 	public class Boomerang extends FlxSprite
 	{

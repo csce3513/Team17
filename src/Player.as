@@ -1,6 +1,6 @@
 package  
 {	
-	import flash.utils.Timer;
+	//import flash.utils.Timer;
 	import org.flixel.*; 
 	public class Player extends FlxSprite
 	{
@@ -84,12 +84,6 @@ package
 			}
 		}
 	
-		//Basic function to give health back to the player
-		public function heal(heal:Number):void {
-			health += heal;
-			if (health > maxHealth) health = maxHealth;
-		}
-		
 		public function getMaxHealth():Number {
 			return maxHealth;
 		}

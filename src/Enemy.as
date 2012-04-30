@@ -1,11 +1,7 @@
 package  
 {
-	/**
-	 * ...
-	 * @author David Knapp
-	 */
+
 	import org.flixel.*;
-	import org.flixel.system.FlxAnim;
 	public class Enemy extends FlxSprite
 	{
 		[Embed(source = "../assets/spike.png")] private var spikeGraphic:Class;

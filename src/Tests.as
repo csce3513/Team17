@@ -49,8 +49,7 @@ package
 
 		public function testAttackTargetInRange(): void {
             var player:Player = new Player(30, 0);
-			player.acceleration.x = -1;
-			player.acceleration.x = 0;
+			player.facing = FlxObject.LEFT;
             var target:Enemy = new Enemy(10, 0);
             player.attack(target);
             assertEquals("Expected: 4, Recived: " + target.health, target.health, 4);
@@ -58,11 +57,27 @@ package
 
 		public function testAttackTargetOutOfRange(): void{
             var player:Player = new Player(40, 0);
-			player.acceleration.x = -1;
-			player.acceleration.x = 0;
+			player.facing = FlxObject.LEFT;
             var target:Enemy = new Enemy(0, 0);
             player.attack(target);
             assertEquals("Expected: 5, Recived: " + target.health, target.health, 5);
+		}
+		
+		public function testBoomerangSpawn():void {
+			var boomer:Boomeranger = new Boomeranger(50, 0);
+			var player:Player = new Player(30, 0);
+			boomer.facing = FlxObject.LEFT;
+			boomer.throwBoomerang(player.x, player.y);
+			assertTrue("Expected true, received: " + boomer.hasActiveBoomerang, boomer.hasActiveBoomerang);
+		}
+		
+		public function testBoomerangCollision():void {
+			var boomer:Boomeranger = new Boomeranger(50, 0);
+			var player:Player = new Player(30, 0);
+			boomer.facing = FlxObject.LEFT;
+			boomer.throwBoomerang(player.x, player.y);
+			boomer.checkBoomerangCollisions(player);
+			assertEquals("Expected: 9, received: " + player.health, player.health, 9);
 		}
 	}
 }

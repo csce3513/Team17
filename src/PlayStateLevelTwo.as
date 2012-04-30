@@ -20,9 +20,8 @@ package
 		private var cam:FlxCamera;
 		private var bar:FlxSprite;
 		private var fadeTimer:FlxTimer = new FlxTimer();
-		private var endChest:TreasureChest;
-		private var endChestSpawned:Boolean = false;
-		private var levelEnded:Boolean = false;
+		private var gear:Gear;
+		private var gearSpawned:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
 		private var endLevelText:FlxText = new FlxText(200, 150, 100, "You found a piece of your ship!"); 
 
@@ -57,7 +56,6 @@ package
 			for (var k:int = 0; k < enemies.length; k++) {
 				if (enemies.members[k].type == "spike" && enemies.members[k].getMeleeAttackZone().overlaps(player.getHitBox()))
 					doSpikeAttack(enemies.members[k]);
-					//FlxG.overlap(enemies.members[k], player, doSpikeAttack(enemies.members[k]));
 				else if (enemies.members[k].type == "boomeranger") {
 					//set boomeranger facing based on player position
 					if (enemies.members[k].startingX - player.x >= 0)
@@ -83,21 +81,13 @@ package
 				paused = !paused;
 			}
 			
+			if (FlxG.keys.pressed("Q")) {
+				enemies.kill();
+			}
+			
 			if (paused) {
 				FlxG.mouse.show();
 				return pauseGroup.update();
-			}
-			
-			if (FlxG.keys.justPressed("H")) {
-				player.doDamage(1);
-			}
-			
-			if (FlxG.keys.justPressed("G")) {
-				player.heal(1);
-			}
-			
-			if (FlxG.keys.justPressed("Q")) {
-				enemies.kill();
 			}
 			
 			if (FlxG.keys.justPressed("C")) {
@@ -121,21 +111,20 @@ package
 				player.reset(player.startingX, player.startingY);
 			}
 
-			if (!levelEnded && !endChestSpawned)
+			if (!gearSpawned)
 				{
 				if (enemies.countDead() == enemies.length) {
-					endChest = new TreasureChest(150, 40)
-					add(endChest);
-					endChest.exists = true;
-					endChestSpawned = true;
+					gear = new Gear(150, 40)
+					add(gear);
+					gearSpawned = true;
 				}
 			}
 			
-			if (endChestSpawned && player.overlaps(endChest)) {
+			if (gearSpawned && player.overlaps(gear)) {
 				endLevelText.scrollFactor.x = endLevelText.scrollFactor.y = 0;
 				add(endLevelText);
+				gear.visible = false;
 				endLevelTimer.start(2, 1);
-				//player.active = false;
 			}
 			
 			if (endLevelTimer.finished) {
@@ -240,10 +229,5 @@ package
 			if (e.tryAttack(player))
 				e.justAttacked();
 		}
-		
-		//private function doBoomerangerAttack(b:Boomeranger) {
-			//if (b.tryAttack(player))
-				//b.justAttacked();
-		//}
 	}
 }

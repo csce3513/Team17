@@ -20,9 +20,8 @@ package
 		private var cam:FlxCamera;
 		private var bar:FlxSprite;
 		private var fadeTimer:FlxTimer = new FlxTimer();
-		private var endChest:TreasureChest;
-		private var endChestSpawned:Boolean = false;
-		private var levelEnded:Boolean = false;
+		private var gear:Gear;
+		private var gearSpawned:Boolean = false;
 		private var endLevelTimer:FlxTimer = new FlxTimer();
 		private var endLevelText:FlxText = new FlxText(200, 150, 100, "You found a piece of your ship!"); 
 
@@ -85,24 +84,13 @@ package
 				paused = !paused;
 			}
 			
+			if (FlxG.keys.pressed("Q")) {
+				enemies.kill();
+			}
+			
 			if (paused) {
 				FlxG.mouse.show();
 				return pauseGroup.update();
-			}
-			
-			//test button to hurt player, remove
-			if (FlxG.keys.justPressed("H")) {
-				player.doDamage(1);
-			}
-			
-			//test button to heal player (unused in final, remove)
-			if (FlxG.keys.justPressed("G")) {
-				player.heal(1);
-			}
-			
-			//remove for final
-			if (FlxG.keys.justPressed("Q")) {
-				enemies.kill();
 			}
 			
 			//checks to see if any enemies are in range, players slash animation
@@ -128,21 +116,20 @@ package
 			}
 
 			//if the enemies are all dead, spawn the gear
-			if (!levelEnded && !endChestSpawned)
+			if (!gearSpawned)
 				{
 				if (enemies.countDead() == enemies.length) {
-					endChest = new TreasureChest(365, 190)
-					add(endChest);
-					endChest.exists = true;
-					endChestSpawned = true;
+					gear = new Gear(365, 190)
+					add(gear);
+					gearSpawned = true;
 				}
 			}
 			
-			if (endChestSpawned && player.overlaps(endChest)) {
+			if (gearSpawned && player.overlaps(gear)) {
 				endLevelText.scrollFactor.x = endLevelText.scrollFactor.y = 0;
 				add(endLevelText);
+				gear.visible = false;
 				endLevelTimer.start(2, 1);
-				//player.active = false;
 			}
 			
 			if (endLevelTimer.finished) {
@@ -245,10 +232,5 @@ package
 			if (e.tryAttack(player))
 				e.justAttacked();
 		}
-		
-		//private function doBoomerangerAttack(b:Boomeranger):void {
-			//if (b.checkBoomerangCollisions(player))
-				//b.justAttacked();
-		//}
 	}
 }
