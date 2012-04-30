@@ -139,7 +139,7 @@ package
 			}
 			
 			if (endLevelTimer.finished) {
-				FlxG.switchState(new PlayStateLevelTwo());
+				FlxG.switchState(new PlayStateLevelTwo);
 			}
 
 			super.update();

@@ -75,9 +75,11 @@ package
 					}
 				}
 			}
-					
+			
+			//update health bar
 			bar.scale.x = player.health * 5;
 			
+			//pause button
 			if (FlxG.keys.justPressed("P")) {
 				FlxG.mouse.hide();
 				paused = !paused;
@@ -88,18 +90,22 @@ package
 				return pauseGroup.update();
 			}
 			
+			//test button to hurt player, remove
 			if (FlxG.keys.justPressed("H")) {
 				player.doDamage(1);
 			}
 			
+			//test button to heal player (unused in final, remove)
 			if (FlxG.keys.justPressed("G")) {
 				player.heal(1);
 			}
 			
+			//remove for final
 			if (FlxG.keys.justPressed("Q")) {
 				enemies.kill();
 			}
 			
+			//checks to see if any enemies are in range, players slash animation
 			if (FlxG.keys.justPressed("C")) {
 				for (var i:int = 0; i < enemies.length; i++)
 					if (enemies.members[i].type == "spike")
@@ -121,6 +127,7 @@ package
 				player.reset(player.startingX, player.startingY);
 			}
 
+			//if the enemies are all dead, spawn the gear
 			if (!levelEnded && !endChestSpawned)
 				{
 				if (enemies.countDead() == enemies.length) {
@@ -139,7 +146,7 @@ package
 			}
 			
 			if (endLevelTimer.finished) {
-				FlxG.switchState(new MenuState());
+				FlxG.switchState(new victoryState);
 			}
 
 			super.update();

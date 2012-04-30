@@ -123,8 +123,8 @@ package
 		public function getHitBox():FlxRect {
 			var hitbox:FlxRect;
 			var coords:FlxPoint = getScreenXY();
-			if (facing == LEFT)	hitbox = new FlxRect(coords.x + 6, coords.y, 24, 24);
-			else hitbox = new FlxRect(coords.x, coords.y, 24, 24);
+			if (facing == LEFT)	hitbox = new FlxRect(coords.x + 6, coords.y, width-6, height);
+			else hitbox = new FlxRect(coords.x, coords.y, width-6, height);
 			return hitbox;
 		}
 		
