@@ -144,9 +144,9 @@ package
 			var _GroundBackdrop:Backdrop;
 			var stringData:Object;
 			var levelData:String;
-			[Embed(source = "../assets/GrassTileSet.png")] var Tiles:Class;
+			[Embed(source = "../assets/CaveTileSet.png")] var Tiles:Class;
 			[Embed(source = "../assets/l2.txt", mimeType = "application/octet-stream")] var Data:Class;
-			[Embed(source = "../assets/forest_small.png")] var ImgBackdrop:Class;
+			[Embed(source = "../assets/cave_color.png")] var ImgBackdrop:Class;
 			_GroundBackdrop = new Backdrop( 0, 5, ImgBackdrop, .3);		
 			add (_GroundBackdrop);
 			stringData = new Data();

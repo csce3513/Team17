@@ -140,9 +140,9 @@ package
 			var stringData:Object;
 			var levelData:String;
 			
-			[Embed(source = "../assets/GrassTileSet.png")] var Tiles:Class;
+			[Embed(source = "../assets/CliffTileSet.png")] var Tiles:Class;
 			[Embed(source = "../assets/l1.txt", mimeType = "application/octet-stream")] var Data:Class;
-			[Embed(source = "../assets/forest_small_color.png")] var ImgBackdrop:Class;
+			[Embed(source = "../assets/Clifface_2.png")] var ImgBackdrop:Class;
 			_GroundBackdrop = new Backdrop( 0, 0, ImgBackdrop, 0);		
 			add (_GroundBackdrop);
 			stringData = new Data();
